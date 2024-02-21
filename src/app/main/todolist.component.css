@@ -1,0 +1,24 @@
+.main-container {
+  background-color: whitesmoke;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.backlog {
+  width: 600px;
+  height: 100%
+}
+
+.to-do-list {
+  width: 600px;
+  height: 100%;
+}
+
+.dark-mode {
+  background-color: black;
+  color: whitesmoke;
+  border-color: whitesmoke;
+}

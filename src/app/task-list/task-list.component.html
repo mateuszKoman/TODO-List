@@ -1,0 +1,9 @@
+<div class="task-list-container" [ngClass]="{'dark-mode': isDarkMode}">
+  <task-card class="task-card-container"
+             [ngClass]="{'dark-mode': isDarkMode}"
+             *ngFor="let task of listOfTasks;"
+             (click)="toggleSelection(task)"
+             [class.selected]="isSelected(task)">
+    {{ task }}
+  </task-card>
+</div>

@@ -1,0 +1,7 @@
+<input [(ngModel)]="newTask"
+       placeholder="Type your task"
+       class="add-task-input"
+       [ngClass]="{'dark-mode': isDarkMode}">
+<button class="small-button" [ngClass]="{'dark-mode': isDarkMode}" (click)="addTask()">
+  Add
+</button>

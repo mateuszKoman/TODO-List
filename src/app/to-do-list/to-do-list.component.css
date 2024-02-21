@@ -1,0 +1,18 @@
+.todolist-header-container {
+  position: absolute;
+  right: 120px;
+  top: 130px;
+  margin-bottom: 0;
+}
+
+.theme-mode-switcher-container {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
+.dark-mode {
+  background-color: black;
+  color: whitesmoke;
+  border-color: whitesmoke;
+}
