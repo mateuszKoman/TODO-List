@@ -16,6 +16,7 @@ export class ListsActionHandlerService {
 
 
   constructor(private addTaskService: AddTaskService) {
+    this.backlog = addTaskService.backlogTasks;
   }
 
   addToToDoList(): void {
@@ -23,15 +24,15 @@ export class ListsActionHandlerService {
 
     this.selectedItems.forEach(selectedTask => {
       this.todolist.push(selectedTask);
-      for (let i = 0; i < this.addTaskService.backlogTasks.length; i++) {
-        if (this.addTaskService.backlogTasks[i] === selectedTask) {
+      for (let i = 0; i < this.backlog.length; i++) {
+        if (this.backlog[i] === selectedTask) {
           indexesToRemove.push(i);
         }
       }
     });
 
     for (let i = indexesToRemove.length - 1; i >= 0; i--) {
-      this.addTaskService.backlogTasks.splice(indexesToRemove[i], 1);
+      this.backlog.splice(indexesToRemove[i], 1);
     }
 
     this.selectedItems = [];
@@ -43,7 +44,7 @@ export class ListsActionHandlerService {
     let indexesToRemove: number[] = [];
 
     this.selectedItems.forEach(selectedTask => {
-      this.addTaskService.backlogTasks.push(selectedTask);
+      this.backlog.push(selectedTask);
       for (let i = 0; i < this.todolist.length; i++) {
         if (this.todolist[i] === selectedTask) {
           indexesToRemove.push(i);
