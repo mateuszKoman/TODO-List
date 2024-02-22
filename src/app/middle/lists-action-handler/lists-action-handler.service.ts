@@ -19,33 +19,48 @@ export class ListsActionHandlerService {
   }
 
   addToToDoList(): void {
+    let indexesToRemove: number[] = [];
+
     this.selectedItems.forEach(selectedTask => {
       this.todolist.push(selectedTask);
       for (let i = 0; i < this.addTaskService.backlogTasks.length; i++) {
-        if (this.selectedItems.includes(this.addTaskService.backlogTasks[i])) {
-          this.addTaskService.backlogTasks.splice(i, 1);
-          i--;
+        if (this.addTaskService.backlogTasks[i] === selectedTask) {
+          indexesToRemove.push(i);
         }
       }
     });
-    this.updateToDoList();
+
+    for (let i = indexesToRemove.length - 1; i >= 0; i--) {
+      this.addTaskService.backlogTasks.splice(indexesToRemove[i], 1);
+    }
+
     this.selectedItems = [];
+    this.updateToDoList();
+    this.updateBacklog();
   }
 
   revertToBacklog(): void {
+    let indexesToRemove: number[] = [];
+
     this.selectedItems.forEach(selectedTask => {
       this.addTaskService.backlogTasks.push(selectedTask);
       for (let i = 0; i < this.todolist.length; i++) {
-        if (this.selectedItems.includes(this.todolist[i])) {
-          this.todolist.splice(i, 1);
-          i--;
+        if (this.todolist[i] === selectedTask) {
+          indexesToRemove.push(i);
         }
       }
     });
+
+    for (let i = indexesToRemove.length - 1; i >= 0; i--) {
+      this.todolist.splice(indexesToRemove[i], 1);
+    }
+
+    this.selectedItems = [];
     this.updateBacklog();
     this.updateToDoList();
-    this.selectedItems = [];
   }
+
+
 
   toggleSelection(task: string): void {
     if (this.isSelected(task)) {
