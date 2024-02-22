@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AddTaskService {
   private readonly localStorageKey = 'Backlog Tasks';
-  backlogTasks: string[] = this.getInitialBacklogTaskList();
+  backlogTasks: string[] = [];
   constructor() { }
 
   getTasks(): string[] {
@@ -15,11 +15,11 @@ export class AddTaskService {
 
   addTask(task: string) {
     this.backlogTasks.push(task);
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.backlogTasks));
+    // localStorage.setItem(this.localStorageKey, JSON.stringify(this.backlogTasks));
   }
 
-  private getInitialBacklogTaskList(): string[] {
-    const storedState = localStorage.getItem(this.localStorageKey);
-    return storedState ? JSON.parse(storedState) : false;
-  }
+  // private getInitialBacklogTaskList(): string[] {
+  //   const storedState = localStorage.getItem(this.localStorageKey);
+  //   return storedState ? JSON.parse(storedState) : false;
+  // }
 }

@@ -19,8 +19,13 @@ export class MiddleComponent {
 ) {
   }
 
-  addToList() {
+  addToToDoList() {
     this.listsActionHandler.addToToDoList();
+    this.changeDetectorRef.detectChanges();
+  }
+
+  revertToBacklog() {
+    this.listsActionHandler.revertToBacklog();
     this.changeDetectorRef.detectChanges();
   }
 }

@@ -42,17 +42,17 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     this.observeToDoList();
   }
 
-  private observeToDoList(): void {
-    this.ToDoListSubscription = this.listActionHandler.getList()
-                                    .subscribe((list: string[]) => {
-                                      this.toDoList = list;
-                                      this.changeDetectorRef.detectChanges();
-                                    });
-  }
-
   ngOnDestroy(): void {
     if (this.ToDoListSubscription) {
       this.ToDoListSubscription.unsubscribe();
     }
+  }
+
+  private observeToDoList(): void {
+    this.ToDoListSubscription = this.listActionHandler.getToDoList()
+                                    .subscribe((list: string[]) => {
+                                      this.toDoList = list;
+                                      this.changeDetectorRef.detectChanges();
+                                    });
   }
 }
