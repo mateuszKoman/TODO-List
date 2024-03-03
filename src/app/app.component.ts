@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { TODOListComponent } from './main/todolist-component';
+import { MainComponent } from 'app/main/main.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, TODOListComponent],
+  imports: [CommonModule, RouterOutlet, MainComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
