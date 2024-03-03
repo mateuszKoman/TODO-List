@@ -8,6 +8,7 @@ import { ThemeService } from 'app/common/theme-mode-switcher/theme-service/theme
 import { Subscription } from 'rxjs';
 import { AddTaskService } from 'app/main/backlog/add-task/add-task-service/add-task.service';
 import { ListsActionHandlerService } from 'app/main/middle/lists-action-handler/lists-action-handler.service';
+import { Task } from 'app/common/task/task';
 
 @Component({
   selector: 'backlog',
@@ -26,7 +27,7 @@ export class BacklogComponent implements OnDestroy, OnInit {
   isDarkMode: boolean = false;
   private themeSubscription?: Subscription;
 
-  backlogTasks: string[] = this.addTaskService.getTasks();
+  backlogTasks: Array<Task> = this.addTaskService.getTasks();
   private backlogSubscription?: Subscription;
 
   constructor(private themeService: ThemeService,
@@ -51,8 +52,8 @@ export class BacklogComponent implements OnDestroy, OnInit {
 
   private observeBacklog(): void {
     this.backlogSubscription = this.listsActionHandler.getBacklog()
-                                   .subscribe((list: string[]) => {
-                                     this.backlogTasks = this.backlogTasks.concat(list);
+                                   .subscribe((list: Array<Task>) => {
+                                     this.backlogTasks = list;
                                      this.changeDetectorRef.detectChanges();
                                    });
   }

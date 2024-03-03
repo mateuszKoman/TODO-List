@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { ThemeService } from 'app/common/theme-mode-switcher/theme-service/theme.service';
 import { ListsActionHandlerService } from 'app/main/middle/lists-action-handler/lists-action-handler.service';
 import { AddTaskService } from 'app/main/backlog/add-task/add-task-service/add-task.service';
+import { Task } from 'app/common/task/task';
 
 @Component({
   selector: 'to-do-list',
@@ -26,7 +27,7 @@ import { AddTaskService } from 'app/main/backlog/add-task/add-task-service/add-t
 export class ToDoListComponent implements OnInit, OnDestroy {
   isDarkMode: boolean = false;
   private themeSubscription: Subscription;
-  toDoList: string[] = [];
+  toDoList: Array<Task> = [];
   private ToDoListSubscription?: Subscription;
 
 
@@ -52,7 +53,7 @@ export class ToDoListComponent implements OnInit, OnDestroy {
 
   private observeToDoList(): void {
     this.ToDoListSubscription = this.listActionHandler.getToDoList()
-                                    .subscribe((list: string[]) => {
+                                    .subscribe((list: Array<Task>) => {
                                       this.toDoList = list;
                                       this.changeDetectorRef.detectChanges();
                                     });

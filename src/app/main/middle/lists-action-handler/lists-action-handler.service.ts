@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { AddTaskService } from 'app/main/backlog/add-task/add-task-service/add-task.service';
 import { Observable, Subject } from 'rxjs';
+import { Task } from 'app/common/task/task';
 
 @Injectable({
   providedIn: 'any'
 })
 export class ListsActionHandlerService {
-  private selectedItems: string[] = [];
+  private selectedItems: Array<Task> = [];
 
-  private todolist: string[] = [];
-  private todolistSubject = new Subject<string[]>();
+  private todolist: Array<Task> = [];
+  private todolistSubject = new Subject<Array<Task>>();
 
-  private backlog: string[] = [];
-  private backlogSubject = new Subject<string[]>();
+  private backlog: Array<Task> = [];
+  private backlogSubject = new Subject<Array<Task>>();
 
 
   constructor(private addTaskService: AddTaskService) {
@@ -20,25 +21,21 @@ export class ListsActionHandlerService {
   }
 
   addToToDoList(): void {
-    let indexesToRemove: number[] = [];
+    let idsToRemove: string[] = this.selectedItems.map(task => task.id);
 
-    this.selectedItems.forEach(selectedTask => {
-      this.todolist.push(selectedTask);
-      for (let i = 0; i < this.backlog.length; i++) {
-        if (this.backlog[i] === selectedTask) {
-          indexesToRemove.push(i);
-        }
-      }
+    this.todolist.push(...this.selectedItems);
+
+    this.backlog = this.backlog.filter(task => {
+      return !idsToRemove.includes(task.id);
     });
 
-    for (let i = indexesToRemove.length - 1; i >= 0; i--) {
-      this.backlog.splice(indexesToRemove[i], 1);
-    }
-
     this.selectedItems = [];
+
     this.updateToDoList();
     this.updateBacklog();
   }
+
+
 
   revertToBacklog(): void {
     let indexesToRemove: number[] = [];
@@ -62,24 +59,23 @@ export class ListsActionHandlerService {
   }
 
 
-
-  toggleSelection(task: string): void {
+  toggleSelection(task: Task): void {
     if (this.isSelected(task)) {
-      this.selectedItems = this.selectedItems.filter(value => value !== task);
+      this.selectedItems = this.selectedItems.filter(value => value.id !== task.id);
     } else {
       this.selectedItems.push(task);
     }
   }
 
-  isSelected(task: string): boolean {
-    return this.selectedItems.includes(task);
+  isSelected(task: Task): boolean {
+    return this.selectedItems.some(selectedTask => selectedTask.id === task.id);
   }
 
   private updateToDoList() {
     this.todolistSubject.next(this.todolist);
   }
 
-  getToDoList(): Observable<string[]> {
+  getToDoList(): Observable<Array<Task>> {
     return this.todolistSubject.asObservable();
   }
 
@@ -87,7 +83,7 @@ export class ListsActionHandlerService {
     this.backlogSubject.next(this.backlog);
   }
 
-  getBacklog(): Observable<string[]> {
+  getBacklog(): Observable<Array<Task>> {
     return this.backlogSubject.asObservable();
   }
 }

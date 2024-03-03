@@ -4,6 +4,7 @@ import { ThemeService } from 'app/common/theme-mode-switcher/theme-service/theme
 import { AddTaskService } from 'app/main/backlog/add-task/add-task-service/add-task.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Task } from 'app/common/task/task';
 
 @Component({
   selector: 'add-task',
@@ -16,10 +17,10 @@ export class AddTaskComponent implements OnDestroy {
 
   isDarkMode: boolean = false;
   private themeSubscription: Subscription;
-  newTask: string = '';
+  newTaskSummary!: string;
 
   @Output()
-  taskEmitter: EventEmitter<string> = new EventEmitter<string>();
+  taskEmitter: EventEmitter<Array<Task>> = new EventEmitter<Array<Task>>();
 
   constructor(private themeService: ThemeService,
               private addTaskService: AddTaskService) {
@@ -29,10 +30,10 @@ export class AddTaskComponent implements OnDestroy {
   }
 
   addTask(): void {
-    if (this.newTask !== '') {
-      this.addTaskService.addTask(this.newTask);
+    if (this.newTaskSummary !== '') {
+      this.addTaskService.addTask(this.newTaskSummary);
       this.taskEmitter.emit();
-      this.newTask = '';
+      this.newTaskSummary = '';
     }
   }
 

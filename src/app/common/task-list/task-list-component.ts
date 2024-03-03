@@ -28,11 +28,11 @@ export class TaskListComponent implements OnDestroy {
     })
   }
 
-  isSelected(task: string): boolean {
+  isSelected(task: Task): boolean {
     return this.listsActionHandler.isSelected(task);
   }
 
-  toggleSelection(task: string): void {
+  toggleSelection(task: Task): void {
     this.listsActionHandler.toggleSelection(task);
   }
 

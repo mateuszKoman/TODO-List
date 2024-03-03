@@ -1,4 +1,9 @@
 export class Task {
-  constructor(id: number, name: string) {
+  id: string;
+  summary: string;
+
+  constructor(id: string, summary: string) {
+    this.id = id;
+    this.summary = summary;
   }
 }

@@ -4,6 +4,6 @@
              *ngFor="let task of listOfTasks;"
              (click)="toggleSelection(task)"
              [class.selected]="isSelected(task)">
-    {{ task }}
+    {{ task.summary }}
   </task-card>
 </div>
