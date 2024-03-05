@@ -4,5 +4,10 @@
 <add-task class="add-task-container"></add-task>
 <task-list class="task-container"
            [ngClass]="{'dark-mode': isDarkMode}"
-           [listOfTasks]="backlogTasks">
+           [listOfTasks]="backlogTasks"
+           cdkDropList
+           [cdkDropListConnectedTo]="['list-a', 'list-b']"
+           (cdkDropListDropped)="drop($event)"
+           [cdkDropListData]="backlogTasks"
+           id="list-b">
 </task-list>

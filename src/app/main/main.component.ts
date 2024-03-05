@@ -1,6 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
 import { TaskListComponent } from '../common/task-list/task-list-component';
-import { LargeButtonComponent } from './middle/large-button/large-button.component';
 import { HeaderComponent } from 'app/common/header/header.component';
 import { ThemeModeSwitcherComponent } from '../common/theme-mode-switcher/theme-mode-switcher.component';
 import { NgClass } from '@angular/common';
@@ -10,20 +9,21 @@ import { AddTaskComponent } from 'app/main/backlog/add-task/add-task.component';
 import { BacklogComponent } from 'app/main/backlog/backlog.component';
 import { MiddleComponent } from 'app/main/middle/middle.component';
 import { ToDoListComponent } from 'app/main/to-do-list/to-do-list.component';
+import { CdkDropListGroup } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'todolist',
   standalone: true,
   imports: [
     TaskListComponent,
-    LargeButtonComponent,
     HeaderComponent,
     ThemeModeSwitcherComponent,
     NgClass,
     AddTaskComponent,
     BacklogComponent,
     MiddleComponent,
-    ToDoListComponent
+    ToDoListComponent,
+    CdkDropListGroup
   ],
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']

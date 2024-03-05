@@ -1,9 +1,13 @@
-<div class="task-list-container" [ngClass]="{'dark-mode': isDarkMode}">
+<div class="task-list-container"
+     [ngClass]="{'dark-mode': isDarkMode}"
+     cdkDropList
+     [cdkDropListConnectedTo]="['list-a', 'list-b']">
+
   <task-card class="task-card-container"
              [ngClass]="{'dark-mode': isDarkMode}"
              *ngFor="let task of listOfTasks;"
-             (click)="toggleSelection(task)"
-             [class.selected]="isSelected(task)">
+             cdkDrag
+             [cdkDragData]="task">
     {{ task.summary }}
   </task-card>
 </div>

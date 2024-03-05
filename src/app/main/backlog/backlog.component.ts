@@ -7,8 +7,9 @@ import { FormsModule } from '@angular/forms';
 import { ThemeService } from 'app/common/theme-mode-switcher/theme-service/theme.service';
 import { Subscription } from 'rxjs';
 import { AddTaskService } from 'app/main/backlog/add-task/add-task-service/add-task.service';
-import { ListsActionHandlerService } from 'app/main/middle/lists-action-handler/lists-action-handler.service';
+import { ListsActionHandlerService } from 'app/common/lists-action-handler/lists-action-handler.service';
 import { Task } from 'app/common/task/task';
+import { CdkDragDrop, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'backlog',
@@ -18,7 +19,9 @@ import { Task } from 'app/common/task/task';
     AddTaskComponent,
     HeaderComponent,
     CommonModule,
-    FormsModule
+    FormsModule,
+    CdkDropListGroup,
+    CdkDropList
   ],
   templateUrl: './backlog.component.html',
   styleUrls: ['./backlog.component.css']
@@ -56,5 +59,9 @@ export class BacklogComponent implements OnDestroy, OnInit {
                                      this.backlogTasks = list;
                                      this.changeDetectorRef.detectChanges();
                                    });
+  }
+
+  drop(event: CdkDragDrop<Task[]>) {
+    this.listsActionHandler.revertToBacklog(event.item.data);
   }
 }

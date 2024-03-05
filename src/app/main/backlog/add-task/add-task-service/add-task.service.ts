@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
   providedIn: 'root'
 })
 export class AddTaskService {
-  private readonly localStorageKey = 'Backlog Tasks';
+  // private readonly localStorageKey = 'Backlog Tasks';
   backlogTasks: Array<Task> = [];
   constructor() { }
 

@@ -3,6 +3,12 @@
 </app-header>
 <task-list class="task-container"
            [ngClass]="{'dark-mode': isDarkMode}"
-           [listOfTasks]="toDoList"></task-list>
+           [listOfTasks]="toDoList"
+           cdkDropList
+           (cdkDropListDropped)="drop($event)"
+           [cdkDropListConnectedTo]="['list-a', 'list-b']"
+           [cdkDropListData]="toDoList"
+           id="list-a">
+</task-list>
 <theme-mode-switcher class="theme-mode-switcher-container">
 </theme-mode-switcher>

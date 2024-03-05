@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { TaskCardComponent } from 'app/common/task/task-card/task-card.component';
 import { ThemeService } from 'app/common/theme-mode-switcher/theme-service/theme.service';
 import { Subscription } from 'rxjs';
-import { ListsActionHandlerService } from 'app/main/middle/lists-action-handler/lists-action-handler.service';
+import { ListsActionHandlerService } from 'app/common/lists-action-handler/lists-action-handler.service';
 import { Task } from 'app/common/task/task';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'task-list',
   standalone: true,
-  imports: [CommonModule, TaskCardComponent],
+  imports: [CommonModule, TaskCardComponent, DragDropModule],
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
 })
@@ -21,19 +22,11 @@ export class TaskListComponent implements OnDestroy {
   isDarkMode: boolean = false;
   private themeSubscription: Subscription;
 
-  constructor(private themeService: ThemeService, private listsActionHandler: ListsActionHandlerService) {
+  constructor(private themeService: ThemeService) {
     this.themeSubscription = this.themeService.isDarkMode()
                                  .subscribe((darkMode: boolean) => {
       this.isDarkMode = darkMode;
     })
-  }
-
-  isSelected(task: Task): boolean {
-    return this.listsActionHandler.isSelected(task);
-  }
-
-  toggleSelection(task: Task): void {
-    this.listsActionHandler.toggleSelection(task);
   }
 
   ngOnDestroy(): void {

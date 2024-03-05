@@ -20,16 +20,9 @@ export class ListsActionHandlerService {
     this.backlog = addTaskService.backlogTasks;
   }
 
-  addToToDoList(): void {
-    let idsToRemove: string[] = this.selectedItems.map(task => task.id);
-
-    this.todolist.push(...this.selectedItems);
-
-    this.backlog = this.backlog.filter(task => {
-      return !idsToRemove.includes(task.id);
-    });
-
-    this.selectedItems = [];
+  addToToDoList(task: Task): void {
+    this.todolist.push(task);
+    this.backlog = this.backlog.filter(taskInBacklog => taskInBacklog !== task);
 
     this.updateToDoList();
     this.updateBacklog();
@@ -37,23 +30,10 @@ export class ListsActionHandlerService {
 
 
 
-  revertToBacklog(): void {
-    let indexesToRemove: number[] = [];
+  revertToBacklog(task: Task): void {
+    this.backlog.push(task);
+    this.todolist = this.todolist.filter(taskInToDoList => taskInToDoList !== task);
 
-    this.selectedItems.forEach(selectedTask => {
-      this.backlog.push(selectedTask);
-      for (let i = 0; i < this.todolist.length; i++) {
-        if (this.todolist[i] === selectedTask) {
-          indexesToRemove.push(i);
-        }
-      }
-    });
-
-    for (let i = indexesToRemove.length - 1; i >= 0; i--) {
-      this.todolist.splice(indexesToRemove[i], 1);
-    }
-
-    this.selectedItems = [];
     this.updateBacklog();
     this.updateToDoList();
   }

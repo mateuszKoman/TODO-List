@@ -6,9 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { ThemeService } from 'app/common/theme-mode-switcher/theme-service/theme.service';
-import { ListsActionHandlerService } from 'app/main/middle/lists-action-handler/lists-action-handler.service';
-import { AddTaskService } from 'app/main/backlog/add-task/add-task-service/add-task.service';
+import { ListsActionHandlerService } from 'app/common/lists-action-handler/lists-action-handler.service';
 import { Task } from 'app/common/task/task';
+import { CdkDragDrop, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'to-do-list',
@@ -18,7 +18,9 @@ import { Task } from 'app/common/task/task';
     TaskListComponent,
     ThemeModeSwitcherComponent,
     FormsModule,
-    CommonModule
+    CommonModule,
+    CdkDropListGroup,
+    CdkDropList
   ],
   templateUrl: './to-do-list.component.html',
   styleUrl: './to-do-list.component.css',
@@ -33,8 +35,7 @@ export class ToDoListComponent implements OnInit, OnDestroy {
 
   constructor(private themeService: ThemeService,
               private listActionHandler: ListsActionHandlerService,
-              private changeDetectorRef: ChangeDetectorRef,
-              private few: AddTaskService
+              private changeDetectorRef: ChangeDetectorRef
   ) {
     this.themeSubscription = this.themeService.isDarkMode().subscribe((darkMode) => {
       this.isDarkMode = darkMode;
@@ -57,5 +58,9 @@ export class ToDoListComponent implements OnInit, OnDestroy {
                                       this.toDoList = list;
                                       this.changeDetectorRef.detectChanges();
                                     });
+  }
+
+  drop(event: CdkDragDrop<Task[]>) {
+    this.listActionHandler.addToToDoList(event.item.data)
   }
 }

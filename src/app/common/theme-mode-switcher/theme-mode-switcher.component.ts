@@ -23,7 +23,6 @@ export class ThemeModeSwitcherComponent implements OnDestroy {
   }
 
   toggleTheme() {
-    // Przełącz tryb ciemny
     this.themeService.setDarkMode(!this.isDarkMode);
   }
 }
