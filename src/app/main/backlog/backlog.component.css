@@ -11,6 +11,18 @@
   top: 50px;
 }
 
+.task-container {
+  position: absolute;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 40px;
+  height: 71%;
+  width: 500px;
+  border: 2px solid black;
+  border-radius: 30px;
+  bottom: 100px;
+}
+
 .dark-mode {
   background-color: black;
   color: whitesmoke;

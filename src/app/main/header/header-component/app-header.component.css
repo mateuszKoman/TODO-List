@@ -1,0 +1,17 @@
+.theme-mode-switcher-container {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
+.new-list-button-container {
+  position: absolute;
+  top: 20px;
+  right: 100px;
+}
+
+.dark-mode {
+  background-color: black;
+  color: whitesmoke;
+  border-color: whitesmoke;
+}

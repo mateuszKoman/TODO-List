@@ -1,7 +1,13 @@
 <div class="main-container"
      [ngClass]="{'dark-mode': isDarkMode}"
      cdkDropListGroup>
+  <app-header-component class="app-header"
+                        (newListEventEmitter)="createList()">
+  </app-header-component>
   <backlog class="backlog"></backlog>
   <middle-component></middle-component>
-  <to-do-list class="to-do-list"></to-do-list>
+  <to-do-list class="to-do-list"
+              [listName]="'TO DO LIST'"></to-do-list>
+  <ng-container #container></ng-container>
+  <ng-container #container2></ng-container>
 </div>

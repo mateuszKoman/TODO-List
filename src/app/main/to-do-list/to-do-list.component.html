@@ -1,14 +1,14 @@
-<app-header class="todolist-header-container">
-  TO DO LIST
-</app-header>
-<task-list class="task-container"
-           [ngClass]="{'dark-mode': isDarkMode}"
-           [listOfTasks]="toDoList"
-           cdkDropList
-           (cdkDropListDropped)="drop($event)"
-           [cdkDropListConnectedTo]="['list-a', 'list-b']"
-           [cdkDropListData]="toDoList"
-           id="list-a">
-</task-list>
-<theme-mode-switcher class="theme-mode-switcher-container">
-</theme-mode-switcher>
+<div class="todolist-container">
+  <list-header class="todolist-header-container">
+    {{ listName }}
+  </list-header>
+  <task-list class="task-container"
+             [ngClass]="{'dark-mode': isDarkMode}"
+             [listOfTasks]="toDoList"
+             cdkDropList
+             (cdkDropListDropped)="drop($event)"
+             [cdkDropListConnectedTo]="['list-a', 'list-b']"
+             [cdkDropListData]="toDoList"
+             id="list-a">
+  </task-list>
+</div>

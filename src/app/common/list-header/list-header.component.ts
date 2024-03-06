@@ -4,13 +4,13 @@ import { Subscription } from 'rxjs';
 import { ThemeService } from 'app/common/theme-mode-switcher/theme-service/theme.service';
 
 @Component({
-  selector: 'app-header',
+  selector: 'list-header',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  templateUrl: './list-header.component.html',
+  styleUrls: ['./list-header.component.css']
 })
-export class HeaderComponent implements OnDestroy {
+export class ListHeaderComponent implements OnDestroy {
   isDarkMode: boolean = false;
   private themeSubscription: Subscription;
 
