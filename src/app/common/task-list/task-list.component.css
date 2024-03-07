@@ -20,6 +20,12 @@
   border-radius: 10px;
 }
 
+.dragging {
+  position: fixed !important;
+  pointer-events: none; /* Wyłączenie interakcji na elementach przeciąganych */
+  z-index: 1000; /* Ustawienie wysokiej warstwy, aby element był na wierzchu */
+}
+
 .dark-mode .task-card-container {
   border-color: whitesmoke;
   color: whitesmoke;

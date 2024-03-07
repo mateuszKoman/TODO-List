@@ -6,7 +6,6 @@
            [ngClass]="{'dark-mode': isDarkMode}"
            [listOfTasks]="backlogTasks"
            cdkDropList
-           [cdkDropListConnectedTo]="['list-a', 'list-b']"
            (cdkDropListDropped)="drop($event)"
            [cdkDropListData]="backlogTasks"
            id="list-b">

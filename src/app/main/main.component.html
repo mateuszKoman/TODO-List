@@ -5,9 +5,7 @@
                         (newListEventEmitter)="createList()">
   </app-header-component>
   <backlog class="backlog"></backlog>
-  <middle-component></middle-component>
   <to-do-list class="to-do-list"
               [listName]="'TO DO LIST'"></to-do-list>
-  <ng-container #container></ng-container>
-  <ng-container #container2></ng-container>
+  <ng-container #container class="dynamic-list"></ng-container>
 </div>

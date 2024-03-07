@@ -7,10 +7,11 @@ import { ThemeService } from '../common/theme-mode-switcher/theme-service/theme.
 import { Subscription } from 'rxjs';
 import { AddTaskComponent } from 'app/main/backlog/add-task/add-task.component';
 import { BacklogComponent } from 'app/main/backlog/backlog.component';
-import { MiddleComponent } from 'app/main/middle/middle.component';
 import { ToDoListComponent } from 'app/main/to-do-list/to-do-list.component';
 import { CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { AppHeaderComponent } from 'app/main/header/header-component/app-header.component';
+import { GenericList } from 'app/common/generic-list/generic-list.component';
+import { Task } from 'app/common/task/task';
 
 @Component({
   selector: 'todolist',
@@ -20,9 +21,7 @@ import { AppHeaderComponent } from 'app/main/header/header-component/app-header.
     ListHeaderComponent,
     ThemeModeSwitcherComponent,
     NgClass,
-    AddTaskComponent,
     BacklogComponent,
-    MiddleComponent,
     ToDoListComponent,
     CdkDropListGroup,
     AppHeaderComponent
@@ -50,16 +49,13 @@ export class MainComponent implements OnDestroy {
 
   createList() {
     this.componentCounter++;
-
-    const listComponentRef = this.container.createComponent(ToDoListComponent);
-    const listComponentInstance = listComponentRef.instance as ToDoListComponent;
-
-    listComponentInstance.listName = 'Daily';
-
+    const listComponentRef = this.container.createComponent(GenericList);
     listComponentRef.location.nativeElement.id = `component-${this.componentCounter}`;
     listComponentRef.location.nativeElement.classList.add('dynamic-component');
-
     listComponentRef.location.nativeElement.style.minWidth = '600px';
-    listComponentRef.location.nativeElement.style.minHeight = '800px';
+    listComponentRef.location.nativeElement.style.minHeight = '1000px';
+    listComponentRef.instance.id = `generic-task-list-${this.componentCounter}`
+    listComponentRef.instance.genericList = [new Task('ddfverwv', 'fewqfewfqwe')];
+
   }
 }

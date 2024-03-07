@@ -40,7 +40,7 @@ body {
 }
 
 .dynamic-component {
-  position: absolute;
-  left: 1000px;
+  position: relative;
+  top: 30px;
 }
 

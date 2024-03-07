@@ -1,13 +1,13 @@
 <div class="task-list-container"
      [ngClass]="{'dark-mode': isDarkMode}"
      cdkDropList
-     [cdkDropListConnectedTo]="['list-a', 'list-b']">
-
+     [cdkDropListConnectedTo]="['list-a', 'list-b', 'generic-task-list-1', 'generic-task-list-2', 'generic-task-list-3','generic-task-list-4']">
   <task-card class="task-card-container"
              [ngClass]="{'dark-mode': isDarkMode}"
              *ngFor="let task of listOfTasks;"
              cdkDrag
-             [cdkDragData]="task">
+             [cdkDragData]="task"
+             (cdkDragEntered)="$event">
     {{ task.summary }}
   </task-card>
 </div>

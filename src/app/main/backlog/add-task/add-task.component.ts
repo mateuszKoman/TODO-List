@@ -1,10 +1,12 @@
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { Component, DestroyRef, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ThemeService } from 'app/common/theme-mode-switcher/theme-service/theme.service';
-import { AddTaskService } from 'app/main/backlog/add-task/add-task-service/add-task.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Task } from 'app/common/task/task';
+import { StorageService } from 'app/common/task-list/storage-service/storage.service';
+import { v4 as uuidv4 } from 'uuid';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'add-task',
@@ -17,23 +19,21 @@ export class AddTaskComponent implements OnDestroy {
 
   isDarkMode: boolean = false;
   private themeSubscription: Subscription;
-  newTaskSummary!: string;
-
-  @Output()
-  taskEmitter: EventEmitter<Array<Task>> = new EventEmitter<Array<Task>>();
+  newTask = new Task('', '');
 
   constructor(private themeService: ThemeService,
-              private addTaskService: AddTaskService) {
+              private readonly storageService: StorageService,
+              private destroyRef: DestroyRef) {
     this.themeSubscription = this.themeService.isDarkMode().subscribe((darkMode) => {
       this.isDarkMode = darkMode;
     });
   }
 
   addTask(): void {
-    if (this.newTaskSummary !== '') {
-      this.addTaskService.addTask(this.newTaskSummary);
-      this.taskEmitter.emit();
-      this.newTaskSummary = '';
+    if (this.newTask.summary !== '') {
+      this.newTask.id = uuidv4();
+      this.storageService.addTaskToBacklog(this.newTask);
+      this.newTask = { id: '', summary: '' };
     }
   }
 

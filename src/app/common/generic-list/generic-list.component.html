@@ -1,0 +1,13 @@
+<div class="todolist-container">
+  <generic-list-header [(title)]="listName"
+                       (titleChange)="onListNameChange($event)"
+                       class="generic-list-header">
+  </generic-list-header>
+  <task-list class="task-container"
+             [ngClass]="{'dark-mode': isDarkMode}"
+             [listOfTasks]="genericList"
+             cdkDropList
+             (cdkDropListDropped)="drop($event)"
+             [id]="id">
+  </task-list>
+</div>

@@ -1,0 +1,6 @@
+<input type="text"
+       [(ngModel)]="title"
+       (input)="onTitleChange()"
+       class="generic-header"
+       [ngClass]="{'dark-mode': isDarkMode}"
+       placeholder="List Name">

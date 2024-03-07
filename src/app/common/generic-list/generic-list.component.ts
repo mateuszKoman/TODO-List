@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, OnDestroy, OnInit } from '@angular/core';
 import { ListHeaderComponent } from 'app/common/list-header/list-header.component';
 import { TaskListComponent } from 'app/common/task-list/task-list-component';
 import { ThemeModeSwitcherComponent } from 'app/common/theme-mode-switcher/theme-mode-switcher.component';
@@ -7,13 +7,13 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { ThemeService } from 'app/common/theme-mode-switcher/theme-service/theme.service';
 import { Task } from 'app/common/task/task';
-import { CdkDragDrop, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { NewListComponent } from 'app/common/new-list/new-list.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { StorageService } from 'app/common/task-list/storage-service/storage.service';
+import { GenericListHeaderComponent } from 'app/common/generic-list/generic-list-header/generic-list-header.component';
 
 @Component({
-  selector: 'to-do-list',
+  selector: 'generic-list',
   standalone: true,
   imports: [
     ListHeaderComponent,
@@ -23,28 +23,26 @@ import { StorageService } from 'app/common/task-list/storage-service/storage.ser
     CommonModule,
     CdkDropListGroup,
     CdkDropList,
-    NewListComponent
+    NewListComponent,
+    GenericListHeaderComponent
   ],
-  templateUrl: './to-do-list.component.html',
-  styleUrl: './to-do-list.component.css',
+  templateUrl: './generic-list.component.html',
+  styleUrl: './generic-list.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToDoListComponent implements OnInit, OnDestroy {
-  @Input()
+export class GenericList implements OnInit, OnDestroy {
   listName!: string;
-
-  isDarkMode: boolean = true;
-  toDoList!: Array<Task>;
+  id!: string;
+  isDarkMode: boolean = false;
+  genericList: Array<Task> = [new Task('efs', 'fefafgerwgre')];
   private ToDoListSubscription?: Subscription;
 
   constructor(private themeService: ThemeService,
-              private destroyRef: DestroyRef,
-              private readonly storageService: StorageService
+              private destroyRef: DestroyRef
   ) {
   }
 
   ngOnInit(): void {
-    this.observeTODOList();
     this.observeThemeMode();
   }
 
@@ -55,8 +53,18 @@ export class ToDoListComponent implements OnInit, OnDestroy {
   }
 
   drop(event: CdkDragDrop<Task[]>) {
-    this.storageService.removeTaskFromBacklog(event.item.data);
-    this.storageService.addTaskToTODOList(event.item.data);
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    }
+  }
+
+  onListNameChange(newTitle: string) {
+    this.listName = newTitle;
   }
 
   observeThemeMode(): void {
@@ -65,13 +73,5 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     ).subscribe((isDarkModeON: boolean) => {
       this.isDarkMode = isDarkModeON;
     });
-  }
-
-  observeTODOList() {
-    this.storageService.getTODOList().pipe(
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe(todolist => {
-      this.toDoList = todolist;
-    })
   }
 }

@@ -1,0 +1,15 @@
+.generic-header {
+  background-color: whitesmoke;
+  color: black;
+  font-size: 60px;
+  font-family: 'Permanent Marker', cursive;
+  margin: 0;
+  border: 0;
+  width: 300px;
+  text-align: center;
+}
+
+.dark-mode {
+  color: whitesmoke;
+  background-color: black;
+}
