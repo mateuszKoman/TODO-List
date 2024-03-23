@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Task } from 'app/common/task/task';
-import { BehaviorSubject, Observable, of, take } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { BehaviorSubject, Observable, take } from 'rxjs';
+import { TaskStatus } from 'app/common/task/taskStatus';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
 
-  private _backlog = new BehaviorSubject<Task[]>([]);
+  private _backlog = new BehaviorSubject<Task[]>([new Task('lala', 'first task', TaskStatus.TODO)]);
   backlog$ = this._backlog.asObservable();
 
   private _todolist = new BehaviorSubject<Task[]>([]);
@@ -64,5 +64,7 @@ export class StorageService {
       this.updateTODOList(updatedTODOList);
     })
   }
+
+
 }
 

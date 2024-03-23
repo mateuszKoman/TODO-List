@@ -1,4 +1,4 @@
-import { Component, DestroyRef, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { Component, DestroyRef, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ThemeService } from 'app/common/theme-mode-switcher/theme-service/theme.service';
 import { FormsModule } from '@angular/forms';
@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { Task } from 'app/common/task/task';
 import { StorageService } from 'app/common/task-list/storage-service/storage.service';
 import { v4 as uuidv4 } from 'uuid';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TaskStatus } from 'app/common/task/taskStatus';
 
 @Component({
   selector: 'add-task',
@@ -19,7 +19,7 @@ export class AddTaskComponent implements OnDestroy {
 
   isDarkMode: boolean = false;
   private themeSubscription: Subscription;
-  newTask = new Task('', '');
+  newTask = new Task('', '', TaskStatus.DONE);
 
   constructor(private themeService: ThemeService,
               private readonly storageService: StorageService,
@@ -33,7 +33,7 @@ export class AddTaskComponent implements OnDestroy {
     if (this.newTask.summary !== '') {
       this.newTask.id = uuidv4();
       this.storageService.addTaskToBacklog(this.newTask);
-      this.newTask = { id: '', summary: '' };
+      this.newTask = { id: '', summary: '', status: TaskStatus.TODO}
     }
   }
 

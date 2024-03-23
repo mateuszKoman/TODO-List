@@ -3,11 +3,15 @@
      cdkDropList
      [cdkDropListConnectedTo]="['list-a', 'list-b', 'generic-task-list-1', 'generic-task-list-2', 'generic-task-list-3','generic-task-list-4']">
   <task-card class="task-card-container"
-             [ngClass]="{'dark-mode': isDarkMode}"
+             [ngClass]="{'dark-mode': isDarkMode,
+             'todo': task.status === TaskStatus.TODO,
+             'inprogress': task.status === TaskStatus.INPROGRESS,
+             'done': task.status === TaskStatus.DONE}"
              *ngFor="let task of listOfTasks;"
              cdkDrag
              [cdkDragData]="task"
-             (cdkDragEntered)="$event">
+             (cdkDragEntered)="$event"
+             [task]="task">
     {{ task.summary }}
   </task-card>
 </div>

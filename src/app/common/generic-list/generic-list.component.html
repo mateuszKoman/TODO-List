@@ -8,6 +8,7 @@
              [listOfTasks]="genericList"
              cdkDropList
              (cdkDropListDropped)="drop($event)"
-             [id]="id">
+             [id]="id"
+             (cdkDropListExited)="exitedTask($event)">
   </task-list>
 </div>

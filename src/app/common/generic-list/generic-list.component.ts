@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { ThemeService } from 'app/common/theme-mode-switcher/theme-service/theme.service';
 import { Task } from 'app/common/task/task';
-import { CdkDragDrop, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDragExit, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { NewListComponent } from 'app/common/new-list/new-list.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { GenericListHeaderComponent } from 'app/common/generic-list/generic-list-header/generic-list-header.component';
@@ -34,7 +34,7 @@ export class GenericList implements OnInit, OnDestroy {
   listName!: string;
   id!: string;
   isDarkMode: boolean = false;
-  genericList: Array<Task> = [new Task('efs', 'fefafgerwgre')];
+  genericList!: Array<Task>;
   private ToDoListSubscription?: Subscription;
 
   constructor(private themeService: ThemeService,
@@ -53,14 +53,7 @@ export class GenericList implements OnInit, OnDestroy {
   }
 
   drop(event: CdkDragDrop<Task[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-    }
+    this.genericList.push(event.item.data);
   }
 
   onListNameChange(newTitle: string) {
@@ -73,5 +66,9 @@ export class GenericList implements OnInit, OnDestroy {
     ).subscribe((isDarkModeON: boolean) => {
       this.isDarkMode = isDarkModeON;
     });
+  }
+
+  exitedTask($event: CdkDragExit<any>) {
+    // this.genericList = this.genericList.filter(value => value.id !== $event.item.data.id)
   }
 }

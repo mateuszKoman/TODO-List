@@ -1,0 +1,38 @@
+<div class="edit-modal-container">
+  <div class="edit-modal-main">
+    <h1 class="header">
+      EDIT TASK
+    </h1>
+    <form [formGroup]="form">
+      <div class="input-wrapper">
+        <label for="task-name-input"
+               class="task-name-input-label">
+          Task Name
+        </label>
+        <input type="text"
+               class="task-name-input"
+               id="task-name-input"
+               name="task-name-input"
+               [formControlName]="'taskSummary'">
+      </div>
+      <div class="status-select-wrapper">
+        <label for="status-select">
+          Select Status
+        </label>
+        <select [formControlName]="'taskStatus'"
+                class="status-select" id="status-select">
+          <option *ngFor="let option of taskStatusOptions" [value]="option">{{ option }}</option>
+        </select>
+      </div>
+      <button class="save-button"
+              (click)="onSaveButton($event)">
+        Save
+      </button>
+      <button class="close-button"
+              (click)="onCloseButton()">
+        Close
+      </button>
+    </form>
+  </div>
+</div>
+

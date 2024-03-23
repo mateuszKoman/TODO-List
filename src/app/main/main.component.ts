@@ -5,13 +5,14 @@ import { ThemeModeSwitcherComponent } from '../common/theme-mode-switcher/theme-
 import { NgClass } from '@angular/common';
 import { ThemeService } from '../common/theme-mode-switcher/theme-service/theme.service';
 import { Subscription } from 'rxjs';
-import { AddTaskComponent } from 'app/main/backlog/add-task/add-task.component';
 import { BacklogComponent } from 'app/main/backlog/backlog.component';
 import { ToDoListComponent } from 'app/main/to-do-list/to-do-list.component';
 import { CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { AppHeaderComponent } from 'app/main/header/header-component/app-header.component';
 import { GenericList } from 'app/common/generic-list/generic-list.component';
 import { Task } from 'app/common/task/task';
+import { TaskStatus } from 'app/common/task/taskStatus';
+import { EditModalComponent } from 'app/common/task/task-card/edit-task/edit-modal/edit-modal.component';
 
 @Component({
   selector: 'todolist',
@@ -24,7 +25,8 @@ import { Task } from 'app/common/task/task';
     BacklogComponent,
     ToDoListComponent,
     CdkDropListGroup,
-    AppHeaderComponent
+    AppHeaderComponent,
+    EditModalComponent
   ],
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
@@ -55,7 +57,7 @@ export class MainComponent implements OnDestroy {
     listComponentRef.location.nativeElement.style.minWidth = '600px';
     listComponentRef.location.nativeElement.style.minHeight = '1000px';
     listComponentRef.instance.id = `generic-task-list-${this.componentCounter}`
-    listComponentRef.instance.genericList = [new Task('ddfverwv', 'fewqfewfqwe')];
+    listComponentRef.instance.genericList = [new Task('ddfverwv', 'fewqfewfqwe', TaskStatus.INPROGRESS)];
 
   }
 }

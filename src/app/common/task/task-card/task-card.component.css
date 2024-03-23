@@ -3,3 +3,10 @@
   font-family: 'Permanent Marker', cursive;
   font-size: 30px;
 }
+
+.edit-button {
+  position: absolute;
+  right: 10px;
+  width: 100px;
+  height: 30px;
+}
