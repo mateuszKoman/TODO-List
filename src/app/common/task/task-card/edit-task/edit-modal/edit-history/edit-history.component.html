@@ -1,1 +1,6 @@
-<p>edit-history works!</p>
+<h1 class="header">
+EDIT HISTORY
+</h1>
+<ul>
+  <li *ngFor="let date of changesHistory">{{ date.toLocaleString() }}</li>
+</ul>

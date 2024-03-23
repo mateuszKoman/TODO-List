@@ -3,12 +3,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 .edit-modal-main {
-  width: 600px;
-  height: 500px;
+  width: 1000px;
+  height: 800px;
   position: absolute;
   border: 2px solid black;
   border-radius: 20px;
@@ -20,13 +19,21 @@
   color: black;
 }
 
+.edit-modal-main .dark-mode {
+  border-color: whitesmoke;
+  background-color: black;
+  color: whitesmoke;
+}
+
 .header{
   font-size: 40px;
   font-family: 'Permanent Marker', cursive;
   color: black;
-  height: 30px;
-  margin-left: 5px;
-  margin-top: 10px;
+  margin: 10px 0 5px 5px;
+}
+
+.header .dark-mode {
+  color: whitesmoke;
 }
 
 .input-wrapper {

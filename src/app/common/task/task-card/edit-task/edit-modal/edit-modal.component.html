@@ -1,6 +1,8 @@
 <div class="edit-modal-container">
-  <div class="edit-modal-main">
-    <h1 class="header">
+  <div class="edit-modal-main"
+       [ngClass]="{'dark-mode': isDarkMode}">
+    <h1 class="header"
+        [ngClass]="{'dark-mode': isDarkMode}">
       EDIT TASK
     </h1>
     <form [formGroup]="form">
@@ -11,6 +13,7 @@
         </label>
         <input type="text"
                class="task-name-input"
+               [ngClass]="{'dark-mode': isDarkMode}"
                id="task-name-input"
                name="task-name-input"
                [formControlName]="'taskSummary'">
@@ -20,12 +23,20 @@
           Select Status
         </label>
         <select [formControlName]="'taskStatus'"
-                class="status-select" id="status-select">
-          <option *ngFor="let option of taskStatusOptions" [value]="option">{{ option }}</option>
+                class="status-select"
+                id="status-select"
+                [ngClass]="{'dark-mode': isDarkMode}">
+          <option *ngFor="let option of taskStatusOptions"
+                  [value]="option"
+                  [ngClass]="{'dark-mode': isDarkMode}">
+            {{ option }}
+          </option>
         </select>
       </div>
+      <edit-history>
+      </edit-history>
       <button class="save-button"
-              (click)="onSaveButton($event)">
+              (click)="onSaveButton()">
         Save
       </button>
       <button class="close-button"
