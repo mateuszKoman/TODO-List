@@ -7,10 +7,13 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { ThemeService } from 'app/common/theme-mode-switcher/theme-service/theme.service';
 import { Task } from 'app/common/task/task';
-import { CdkDragDrop, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
-import { NewListComponent } from 'app/common/new-list/new-list.component';
+import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { NewListButtonComponent } from 'app/common/new-list-button/new-list-button.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { StorageService } from 'app/common/task-list/storage-service/storage.service';
+import { EditType } from 'app/common/task/task-card/edit-task/edit-modal/edit-history/editType';
+import { EditHistory } from 'app/common/task/task-card/edit-task/edit-modal/edit-history/editHistory';
+import { ListIDsServiceService } from 'app/common/generic-list/list-ids-service/list-ids-service.service';
 
 @Component({
   selector: 'to-do-list',
@@ -23,40 +26,36 @@ import { StorageService } from 'app/common/task-list/storage-service/storage.ser
     CommonModule,
     CdkDropListGroup,
     CdkDropList,
-    NewListComponent
+    NewListButtonComponent,
+    CdkDrag
   ],
   templateUrl: './to-do-list.component.html',
   styleUrl: './to-do-list.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToDoListComponent implements OnInit, OnDestroy {
+export class ToDoListComponent implements OnInit {
   @Input()
   listName!: string;
 
   isDarkMode: boolean = true;
   toDoList!: Array<Task>;
-  private ToDoListSubscription?: Subscription;
+  listIDs!: Array<string>;
 
   constructor(private themeService: ThemeService,
               private destroyRef: DestroyRef,
-              private readonly storageService: StorageService
+              private readonly storageService: StorageService,
+              private readonly listIDsServiceService: ListIDsServiceService
   ) {
   }
 
   ngOnInit(): void {
     this.observeTODOList();
     this.observeThemeMode();
+    this.observeListIDs();
   }
 
-  ngOnDestroy(): void {
-    if (this.ToDoListSubscription) {
-      this.ToDoListSubscription.unsubscribe();
-    }
-  }
-
-  drop(event: CdkDragDrop<Task[]>) {
-    this.storageService.removeTaskFromBacklog(event.item.data);
-    this.storageService.addTaskToTODOList(event.item.data);
+  drop(event: CdkDragDrop<Task[]>): void {
+    this.storageService.drop(event);
   }
 
   observeThemeMode(): void {
@@ -72,6 +71,14 @@ export class ToDoListComponent implements OnInit, OnDestroy {
       takeUntilDestroyed(this.destroyRef)
     ).subscribe(todolist => {
       this.toDoList = todolist;
-    })
+    });
+  }
+
+  observeListIDs() {
+    this.listIDsServiceService.getListIDs().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(listIDs => {
+      this.listIDs = listIDs;
+    });
   }
 }

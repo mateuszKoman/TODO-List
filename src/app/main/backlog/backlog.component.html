@@ -1,12 +1,17 @@
-<list-header class="backlog-header-container">
-  BACKLOG
-</list-header>
-<add-task class="add-task-container"></add-task>
-<task-list class="task-container"
-           [ngClass]="{'dark-mode': isDarkMode}"
-           [listOfTasks]="backlogTasks"
-           cdkDropList
-           (cdkDropListDropped)="drop($event)"
-           [cdkDropListData]="backlogTasks"
-           id="list-b">
-</task-list>
+<div cdkDrag
+     [cdkDragData]="this"
+     id="backlog-container">
+  <list-header class="backlog-header-container">
+    BACKLOG
+  </list-header>
+  <add-task class="add-task-container"></add-task>
+  <task-list class="task-container"
+             [ngClass]="{'dark-mode': isDarkMode}"
+             [listOfTasks]="backlogTasks"
+             cdkDropList
+             (cdkDropListDropped)="drop($event)"
+             [cdkDropListConnectedTo]="listIDs"
+             [cdkDropListData]="backlogTasks"
+             id="backlog">
+  </task-list>
+</div>

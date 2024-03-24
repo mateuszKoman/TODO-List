@@ -7,9 +7,22 @@ import { FormsModule } from '@angular/forms';
 import { ThemeService } from 'app/common/theme-mode-switcher/theme-service/theme.service';
 import { Subscription } from 'rxjs';
 import { Task } from 'app/common/task/task';
-import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDragEnter,
+  CdkDragExit,
+  CdkDropList,
+  CdkDropListGroup,
+  DragDropModule,
+  moveItemInArray,
+  transferArrayItem
+} from '@angular/cdk/drag-drop';
 import { StorageService } from 'app/common/task-list/storage-service/storage.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TaskStatus } from 'app/common/task/taskStatus';
+import { remove } from 'lodash';
+import { ListIDsServiceService } from 'app/common/generic-list/list-ids-service/list-ids-service.service';
 
 @Component({
   selector: 'backlog',
@@ -33,10 +46,12 @@ export class BacklogComponent implements OnDestroy, OnInit {
   private themeSubscription?: Subscription;
 
   backlogTasks!: Array<Task>;
+  listIDs!: Array<string>;
 
-  constructor(private themeService: ThemeService,
+  constructor(private readonly themeService: ThemeService,
               private readonly storageService: StorageService,
-              private destroyRef: DestroyRef
+              private readonly destroyRef: DestroyRef,
+              private readonly listIDsServiceService: ListIDsServiceService
   ) {
   }
 
@@ -45,6 +60,7 @@ export class BacklogComponent implements OnDestroy, OnInit {
       this.isDarkMode = darkMode;
     });
     this.observeBacklog();
+    this.observeListIDs();
   }
 
   ngOnDestroy(): void {
@@ -59,8 +75,15 @@ export class BacklogComponent implements OnDestroy, OnInit {
     });
   }
 
-  drop(event: CdkDragDrop<Task[]>) {
-    this.storageService.addTaskToBacklog(event.item.data);
-    this.storageService.removeTaskFromTODOList(event.item.data);
+  observeListIDs() {
+    this.listIDsServiceService.getListIDs().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(listIDs => {
+      this.listIDs = listIDs;
+    });
+  }
+
+  drop(event: CdkDragDrop<Task[]>): void {
+    this.storageService.drop(event);
   }
 }

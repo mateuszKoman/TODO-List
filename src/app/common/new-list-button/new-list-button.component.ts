@@ -9,10 +9,10 @@ import { NgClass } from '@angular/common';
   imports: [
     NgClass
   ],
-  templateUrl: './new-list.component.html',
-  styleUrl: './new-list.component.css'
+  templateUrl: './new-list-button.component.html',
+  styleUrl: './new-list-button.component.css'
 })
-export class NewListComponent implements OnInit {
+export class NewListButtonComponent implements OnInit {
   @Output()
   newListEventEmitter: EventEmitter<any> = new EventEmitter<any>
   isDarkMode: boolean = false;

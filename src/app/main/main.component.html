@@ -4,8 +4,18 @@
   <app-header-component class="app-header"
                         (newListEventEmitter)="createList()">
   </app-header-component>
-  <backlog class="backlog"></backlog>
-  <to-do-list class="to-do-list"
-              [listName]="'TO DO LIST'"></to-do-list>
+  <backlog class="backlog"
+           id="backlog-container"
+           cdkDropList
+           [cdkDropListConnectedTo]="'todolist-container'"
+           (cdkDropListDropped)="drop($event)">
+  </backlog>
+  <to-do-list class="todolist"
+              id="todolist-container"
+              [listName]="'TO DO LIST'"
+              cdkDropList
+              [cdkDropListConnectedTo]="'backlog-container'"
+              (cdkDropListDropped)="drop($event)">
+  </to-do-list>
   <ng-container #container class="dynamic-list"></ng-container>
 </div>

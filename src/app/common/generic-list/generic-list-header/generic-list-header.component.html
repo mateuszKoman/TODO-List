@@ -1,6 +1,5 @@
 <input type="text"
        [(ngModel)]="title"
-       (input)="onTitleChange()"
+       (keyup.enter)="onTitleChange()"
        class="generic-header"
-       [ngClass]="{'dark-mode': isDarkMode}"
-       placeholder="List Name">
+       [ngClass]="{'dark-mode': isDarkMode}">

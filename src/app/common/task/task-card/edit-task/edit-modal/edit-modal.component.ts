@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit } from '@angular/core';
 import { MatDialogClose, MatDialogRef } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
 import { Task } from 'app/common/task/task';
@@ -40,14 +40,15 @@ export class EditModalComponent implements OnInit {
   constructor(
     private readonly dialogRef: MatDialogRef<EditModalComponent>,
     private readonly fb: FormBuilder,
-    private readonly themeService: ThemeService
+    private readonly themeService: ThemeService,
+    private readonly destroyRef: DestroyRef
   ) {
   }
 
   ngOnInit(): void {
     this.form = this.fb.group({
       taskSummary: [this.task.summary, [Validators.required, Validators.minLength(1), Validators.maxLength(30)]],
-      taskStatus: [this.task.status || TaskStatus.TODO, Validators.required]
+      taskStatus: [this.task.status, Validators.required]
     });
     this.observeThemeMode();
   }
@@ -74,7 +75,7 @@ export class EditModalComponent implements OnInit {
 
   observeThemeMode() {
     this.themeService.isDarkMode()
-        .pipe(takeUntilDestroyed()
+        .pipe(takeUntilDestroyed(this.destroyRef)
         ).subscribe(isDarkMode => {
       this.isDarkMode = isDarkMode;
     });

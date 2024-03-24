@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Task } from 'app/common/task/task';
 import { BehaviorSubject, Observable, take } from 'rxjs';
 import { TaskStatus } from 'app/common/task/taskStatus';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { EditHistory } from 'app/common/task/task-card/edit-task/edit-modal/edit-history/editHistory';
+import { EditType } from 'app/common/task/task-card/edit-task/edit-modal/edit-history/editType';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +20,20 @@ export class StorageService {
   constructor() {
   }
 
+  drop(event: CdkDragDrop<Task[]>): void {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+
+      event.previousContainer.data.filter(task => task.id !== event.container.data[event.currentIndex].id)
+      event.item.data.editHistory.push(new EditHistory(new Date(), EditType.REPLANNED, event.previousContainer.id, event.container.id ));
+    }
+  }
+
   getBacklog(): Observable<Array<Task>> {
     return this.backlog$;
   }
@@ -26,45 +43,15 @@ export class StorageService {
   }
 
   addTaskToBacklog(task: Task) {
-    this.backlog$.pipe(take(1)).subscribe(backlog => {
-      const updatedBacklog = [...backlog, task];
-      this.updateBacklog(updatedBacklog);
-    });
-  }
-
-  removeTaskFromBacklog(task: Task) {
     this.backlog$.pipe(
       take(1)
-    ).subscribe(value => {
-      const updatedBacklog = value.filter(value => !Task.equals(value, task))
-      this.updateBacklog(updatedBacklog);
-    })
+    ).subscribe(backlog => {
+      this.updateBacklog([...backlog, task]);
+    });
   }
 
   getTODOList(): Observable<Array<Task>> {
     return this.todolist$;
   }
-
-  updateTODOList(newToDoList: Task[]) {
-    this._todolist.next(newToDoList);
-  }
-
-  addTaskToTODOList(task: Task) {
-    this.todolist$.pipe(take(1)).subscribe(todolist => {
-      const updatedTODOList = [...todolist, task];
-      this.updateTODOList(updatedTODOList);
-    });
-  }
-
-  removeTaskFromTODOList(task: Task) {
-    this.todolist$.pipe(
-      take(1)
-    ).subscribe(value => {
-      const updatedTODOList = value.filter(value => !Task.equals(value, task))
-      this.updateTODOList(updatedTODOList);
-    })
-  }
-
-
 }
 

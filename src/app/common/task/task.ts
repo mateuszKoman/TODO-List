@@ -13,8 +13,4 @@ export class Task {
     this.status = status;
     this.editHistory = editHistory;
   }
-
-  static equals(first: Task, second: Task): boolean {
-    return first.id === second.id && first.summary === second.summary;
-  }
 }

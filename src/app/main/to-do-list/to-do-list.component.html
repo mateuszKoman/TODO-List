@@ -1,6 +1,9 @@
-<div class="todolist-container">
+<div class="todolist-container"
+     cdkDrag
+     [cdkDragData]="this"
+     id="todolist-container">
   <list-header class="todolist-header-container"
-  [ngClass]="{'dark-mode': isDarkMode}">
+               [ngClass]="{'dark-mode': isDarkMode}">
     {{ listName }}
   </list-header>
   <task-list class="task-container"
@@ -8,8 +11,8 @@
              [listOfTasks]="toDoList"
              cdkDropList
              (cdkDropListDropped)="drop($event)"
-             [cdkDropListConnectedTo]="['list-a', 'list-b', 'generic-component-1']"
+             [cdkDropListConnectedTo]="listIDs"
              [cdkDropListData]="toDoList"
-             id="list-a">
+             id="todolist">
   </task-list>
 </div>

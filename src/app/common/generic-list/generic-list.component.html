@@ -1,4 +1,4 @@
-<div class="todolist-container">
+<div class="todolist-container" cdkDrag>
   <generic-list-header [(title)]="listName"
                        (titleChange)="onListNameChange($event)"
                        class="generic-list-header">
@@ -8,7 +8,8 @@
              [listOfTasks]="genericList"
              cdkDropList
              (cdkDropListDropped)="drop($event)"
-             [id]="id"
-             (cdkDropListExited)="exitedTask($event)">
+             [cdkDropListConnectedTo]="listIDs"
+             [cdkDropListData]="genericList"
+             [id]="id">
   </task-list>
 </div>

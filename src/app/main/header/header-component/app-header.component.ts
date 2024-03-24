@@ -1,5 +1,5 @@
 import { Component, DestroyRef, EventEmitter, OnInit, Output } from '@angular/core';
-import { NewListComponent } from 'app/common/new-list/new-list.component';
+import { NewListButtonComponent } from 'app/common/new-list-button/new-list-button.component';
 import { ThemeModeSwitcherComponent } from 'app/common/theme-mode-switcher/theme-mode-switcher.component';
 import { ThemeService } from 'app/common/theme-mode-switcher/theme-service/theme.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -8,7 +8,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   selector: 'app-header-component',
   standalone: true,
   imports: [
-    NewListComponent,
+    NewListButtonComponent,
     ThemeModeSwitcherComponent
   ],
   templateUrl: './app-header.component.html',

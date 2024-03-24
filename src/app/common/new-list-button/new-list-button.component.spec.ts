@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewListComponent } from 'app/common/new-list/new-list.component';
+import { NewListButtonComponent } from 'app/common/new-list-button/new-list-button.component';
 
 describe('AddNewListButtonComponent', () => {
-  let component: NewListComponent;
-  let fixture: ComponentFixture<NewListComponent>;
+  let component: NewListButtonComponent;
+  let fixture: ComponentFixture<NewListButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NewListComponent]
+      imports: [NewListButtonComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(NewListComponent);
+    fixture = TestBed.createComponent(NewListButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
