@@ -1,18 +1,17 @@
-import { Component, forwardRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialogClose, MatDialogRef } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
 import { Task } from 'app/common/task/task';
 import { TaskStatus } from 'app/common/task/taskStatus';
-import { FormBuilder, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { EditHistoryComponent } from 'app/common/task/task-card/edit-task/edit-modal/edit-history/edit-history.component';
-import {
-  ChangeHistoryStorageService
-} from 'app/common/task/task-card/edit-task/edit-modal/edit-history/change-history-storage-service/change-history-storage.service';
 import { ThemeService } from 'app/common/theme-mode-switcher/theme-service/theme.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { EditHistory } from 'app/common/task/task-card/edit-task/edit-modal/edit-history/editHistory';
+import { EditType } from 'app/common/task/task-card/edit-task/edit-modal/edit-history/editType';
 
 @Component({
   selector: 'edit-modal',
@@ -33,7 +32,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class EditModalComponent implements OnInit {
 
-  task: Task = new Task('', '', TaskStatus.TODO);
+  task: Task = new Task('', '', TaskStatus.TODO, []);
   form!: FormGroup;
   taskStatusOptions = Object.values(TaskStatus);
   isDarkMode = false;
@@ -41,7 +40,6 @@ export class EditModalComponent implements OnInit {
   constructor(
     private readonly dialogRef: MatDialogRef<EditModalComponent>,
     private readonly fb: FormBuilder,
-    private readonly changeHistoryStorageService: ChangeHistoryStorageService,
     private readonly themeService: ThemeService
   ) {
   }
@@ -58,11 +56,16 @@ export class EditModalComponent implements OnInit {
     this.dialogRef.close(this.form.value);
     const { taskSummary } = this.form.value;
     const { taskStatus } = this.form.value;
-    if (this.task.summary !== taskSummary || this.task.status !== taskStatus) {
-      this.changeHistoryStorageService.setChangeHistory(new Date());
+
+    if (this.task.summary !== taskSummary && this.task.status !== taskStatus) {
+      this.task.editHistory.push(new EditHistory(new Date(), EditType.STATUS_CHANGE_AND_RENAME, this.task.status, taskStatus));
+    } else if (this.task.status !== taskStatus) {
+      this.task.editHistory.push(new EditHistory(new Date(), EditType.STATUS_CHANGE, this.task.status, taskStatus));
+      this.task.status = taskStatus;
+    } else if (this.task.summary !== taskSummary) {
+      this.task.editHistory.push(new EditHistory(new Date(), EditType.RENAME, this.task.summary, taskSummary));
+      this.task.summary = taskSummary;
     }
-    this.task.summary = taskSummary;
-    this.task.status = taskStatus;
   }
 
   onCloseButton() {
@@ -71,9 +74,9 @@ export class EditModalComponent implements OnInit {
 
   observeThemeMode() {
     this.themeService.isDarkMode()
-      .pipe(takeUntilDestroyed()
-      ).subscribe(isDarkMode => {
-        this.isDarkMode = isDarkMode;
-    })
+        .pipe(takeUntilDestroyed()
+        ).subscribe(isDarkMode => {
+      this.isDarkMode = isDarkMode;
+    });
   }
 }

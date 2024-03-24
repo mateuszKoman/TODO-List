@@ -2,5 +2,5 @@
 EDIT HISTORY
 </h1>
 <ul>
-  <li *ngFor="let date of changesHistory">{{ date.toLocaleString() }}</li>
+  <li *ngFor="let date of editHistory">{{ date.editDate.toLocaleString() }}, {{ date.editType }}, {{ date.beforeEdit }}, {{ date.afterEdit }}</li>
 </ul>

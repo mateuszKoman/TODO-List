@@ -1,9 +1,6 @@
-import { Component, DestroyRef, Input, OnInit } from '@angular/core';
-import {
-  ChangeHistoryStorageService
-} from 'app/common/task/task-card/edit-task/edit-modal/edit-history/change-history-storage-service/change-history-storage.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, DestroyRef, Input } from '@angular/core';
 import { NgForOf } from '@angular/common';
+import { EditHistory } from 'app/common/task/task-card/edit-task/edit-modal/edit-history/editHistory';
 
 @Component({
   selector: 'edit-history',
@@ -14,24 +11,8 @@ import { NgForOf } from '@angular/common';
   templateUrl: './edit-history.component.html',
   styleUrl: './edit-history.component.css'
 })
-export class EditHistoryComponent implements OnInit {
-  changesHistory: Array<Date> = [];
+export class EditHistoryComponent {
 
-  constructor(private readonly changeHistoryStorageService: ChangeHistoryStorageService,
-              private readonly destroyRef: DestroyRef
-  ) {
-  }
-
-  ngOnInit(){
-        this.observeChangesHistory();
-    }
-
-  observeChangesHistory() {
-    this.changeHistoryStorageService.getChangeHistory()
-      .pipe(
-        takeUntilDestroyed(this.destroyRef)
-      ).subscribe(changeHistory => {
-        this.changesHistory = changeHistory;
-    })
-  }
+  @Input()
+  editHistory?: Array<EditHistory>
 }

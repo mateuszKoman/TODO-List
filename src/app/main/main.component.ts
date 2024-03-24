@@ -57,7 +57,7 @@ export class MainComponent implements OnDestroy {
     listComponentRef.location.nativeElement.style.minWidth = '600px';
     listComponentRef.location.nativeElement.style.minHeight = '1000px';
     listComponentRef.instance.id = `generic-task-list-${this.componentCounter}`
-    listComponentRef.instance.genericList = [new Task('ddfverwv', 'fewqfewfqwe', TaskStatus.INPROGRESS)];
+    listComponentRef.instance.genericList = [new Task('ddfverwv', 'fewqfewfqwe', TaskStatus.INPROGRESS, [])];
 
   }
 }

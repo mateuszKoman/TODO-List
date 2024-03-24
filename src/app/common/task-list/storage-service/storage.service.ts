@@ -8,7 +8,7 @@ import { TaskStatus } from 'app/common/task/taskStatus';
 })
 export class StorageService {
 
-  private _backlog = new BehaviorSubject<Task[]>([new Task('lala', 'first task', TaskStatus.TODO)]);
+  private _backlog = new BehaviorSubject<Task[]>([new Task('lala', 'first task', TaskStatus.TODO, [])]);
   backlog$ = this._backlog.asObservable();
 
   private _todolist = new BehaviorSubject<Task[]>([]);

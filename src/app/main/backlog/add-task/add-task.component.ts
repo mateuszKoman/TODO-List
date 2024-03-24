@@ -19,7 +19,7 @@ export class AddTaskComponent implements OnDestroy {
 
   isDarkMode: boolean = false;
   private themeSubscription: Subscription;
-  newTask = new Task('', '', TaskStatus.DONE);
+  newTask = new Task('', '', TaskStatus.DONE, []);
 
   constructor(private themeService: ThemeService,
               private readonly storageService: StorageService,
@@ -33,7 +33,7 @@ export class AddTaskComponent implements OnDestroy {
     if (this.newTask.summary !== '') {
       this.newTask.id = uuidv4();
       this.storageService.addTaskToBacklog(this.newTask);
-      this.newTask = { id: '', summary: '', status: TaskStatus.TODO}
+      this.newTask = { id: '', summary: '', status: TaskStatus.TODO, editHistory: []}
     }
   }
 
