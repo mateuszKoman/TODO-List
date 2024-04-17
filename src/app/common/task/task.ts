@@ -5,9 +5,9 @@ export class Task {
   id: string;
   summary: string;
   status: TaskStatus;
-  editHistory: Array<EditHistory>;
+  editHistory: ReadonlyArray<EditHistory>;
 
-  constructor(id: string, summary: string, status: TaskStatus, editHistory: Array<EditHistory>) {
+  constructor(id: string, summary: string, status: TaskStatus, editHistory: ReadonlyArray<EditHistory>) {
     this.id = id;
     this.summary = summary;
     this.status = status;

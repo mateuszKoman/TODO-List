@@ -14,5 +14,5 @@ import { EditHistory } from 'app/common/task/task-card/edit-task/edit-modal/edit
 export class EditHistoryComponent {
 
   @Input()
-  editHistory?: Array<EditHistory>
+  editHistory?: ReadonlyArray<EditHistory>
 }

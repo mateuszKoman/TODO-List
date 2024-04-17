@@ -59,12 +59,12 @@ export class EditModalComponent implements OnInit {
     const { taskStatus } = this.form.value;
 
     if (this.task.summary !== taskSummary && this.task.status !== taskStatus) {
-      this.task.editHistory.push(new EditHistory(new Date(), EditType.STATUS_CHANGE_AND_RENAME, this.task.status, taskStatus));
+      this.task.editHistory = [...this.task.editHistory, new EditHistory(new Date(), EditType.STATUS_CHANGE_AND_RENAME, this.task.status, taskStatus)];
     } else if (this.task.status !== taskStatus) {
-      this.task.editHistory.push(new EditHistory(new Date(), EditType.STATUS_CHANGE, this.task.status, taskStatus));
+      this.task.editHistory = [...this.task.editHistory, new EditHistory(new Date(), EditType.STATUS_CHANGE, this.task.status, taskStatus)];
       this.task.status = taskStatus;
     } else if (this.task.summary !== taskSummary) {
-      this.task.editHistory.push(new EditHistory(new Date(), EditType.RENAME, this.task.summary, taskSummary));
+      this.task.editHistory = [...this.task.editHistory, new EditHistory(new Date(), EditType.RENAME, this.task.summary, taskSummary)];
       this.task.summary = taskSummary;
     }
   }
