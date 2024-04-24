@@ -85,5 +85,6 @@ export class BacklogComponent implements OnDestroy, OnInit {
 
   drop(event: CdkDragDrop<Task[]>): void {
     this.storageService.drop(event);
+    event.item.data.status = TaskStatus.TODO;
   }
 }

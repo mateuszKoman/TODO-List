@@ -1,3 +1,7 @@
+.app-header-container {
+  width: 30%;
+}
+
 .theme-mode-switcher-container {
   position: absolute;
   right: 15px;

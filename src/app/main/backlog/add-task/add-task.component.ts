@@ -19,7 +19,7 @@ export class AddTaskComponent implements OnDestroy {
 
   isDarkMode: boolean = false;
   private themeSubscription: Subscription;
-  newTask = new Task('', '', TaskStatus.DONE, []);
+  newTask = new Task('', '', TaskStatus.TODO, []);
 
   constructor(private themeService: ThemeService,
               private readonly storageService: StorageService,

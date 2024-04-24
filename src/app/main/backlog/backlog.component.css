@@ -1,9 +1,15 @@
+.backlog-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
 .add-task-container {
   position: absolute;
   top: 140px;
   left: 50px;
 }
-
 
 .backlog-header-container {
   position: absolute;

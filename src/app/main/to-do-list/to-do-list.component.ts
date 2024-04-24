@@ -14,6 +14,7 @@ import { StorageService } from 'app/common/task-list/storage-service/storage.ser
 import { EditType } from 'app/common/task/task-card/edit-task/edit-modal/edit-history/editType';
 import { EditHistory } from 'app/common/task/task-card/edit-task/edit-modal/edit-history/editHistory';
 import { ListIDsServiceService } from 'app/common/generic-list/list-ids-service/list-ids-service.service';
+import { BacklogComponent } from 'app/main/backlog/backlog.component';
 
 @Component({
   selector: 'to-do-list',
@@ -27,15 +28,14 @@ import { ListIDsServiceService } from 'app/common/generic-list/list-ids-service/
     CdkDropListGroup,
     CdkDropList,
     NewListButtonComponent,
-    CdkDrag
+    CdkDrag,
+    BacklogComponent
   ],
   templateUrl: './to-do-list.component.html',
   styleUrl: './to-do-list.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToDoListComponent implements OnInit {
-  @Input()
-  listName!: string;
 
   isDarkMode: boolean = true;
   toDoList!: Array<Task>;

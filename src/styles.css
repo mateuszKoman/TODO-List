@@ -41,7 +41,7 @@ body {
 
 .dynamic-component {
   position: relative;
-  top: 30px;
+  top: 85px;
 }
 
 
@@ -55,8 +55,4 @@ mat-dialog-container {
   min-height: 100vh;
   z-index: 1;
   background-color: black;
-}
-
-.cdk-drag-dragging {
-  cursor: grabbing;
 }

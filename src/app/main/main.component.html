@@ -1,21 +1,23 @@
 <div class="main-container"
-     [ngClass]="{'dark-mode': isDarkMode}"
-     cdkDropListGroup>
+     [ngClass]="{'dark-mode': isDarkMode}">
   <app-header-component class="app-header"
                         (newListEventEmitter)="createList()">
   </app-header-component>
   <backlog class="backlog"
-           id="backlog-container"
-           cdkDropList
-           [cdkDropListConnectedTo]="'todolist-container'"
-           (cdkDropListDropped)="drop($event)">
+           id="backlog"
+           draggable="true"
+           (dragstart)="onDragStart($event)"
+           (drop)="onDrop($event)"
+           (dragover)="allowDrop($event)">
   </backlog>
   <to-do-list class="todolist"
-              id="todolist-container"
-              [listName]="'TO DO LIST'"
-              cdkDropList
-              [cdkDropListConnectedTo]="'backlog-container'"
-              (cdkDropListDropped)="drop($event)">
+              id="todolist"
+              draggable="true"
+              (dragstart)="onDragStart($event)"
+              (drop)="onDrop($event)"
+              (dragover)="allowDrop($event)">
   </to-do-list>
-  <ng-container #container class="dynamic-list"></ng-container>
+    <ng-container #container
+                  class="dynamic-list">
+    </ng-container>
 </div>

@@ -25,6 +25,8 @@
 }
 
 .generic-list-header {
+  position: absolute;
+  top: 20px;
   width: 300px;
   background-color: whitesmoke;
 }

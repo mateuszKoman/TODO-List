@@ -13,6 +13,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { GenericListHeaderComponent } from 'app/common/generic-list/generic-list-header/generic-list-header.component';
 import { StorageService } from 'app/common/task-list/storage-service/storage.service';
 import { ListIDsServiceService } from 'app/common/generic-list/list-ids-service/list-ids-service.service';
+import { BacklogComponent } from 'app/main/backlog/backlog.component';
 
 @Component({
   selector: 'generic-list',
@@ -27,7 +28,8 @@ import { ListIDsServiceService } from 'app/common/generic-list/list-ids-service/
     CdkDropList,
     NewListButtonComponent,
     GenericListHeaderComponent,
-    CdkDrag
+    CdkDrag,
+    BacklogComponent
   ],
   templateUrl: './generic-list.component.html',
   styleUrl: './generic-list.component.css',
@@ -53,6 +55,11 @@ export class GenericList implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.observeThemeMode();
     this.observeListIDs();
+
+    const container = document.getElementById('list-1');
+    if (container) {
+      container.setAttribute('cdkDropListLockAxis', 'x');
+    }
   }
 
   ngOnDestroy(): void {
@@ -85,5 +92,4 @@ export class GenericList implements OnInit, OnDestroy {
       this.listIDs = listIDs;
     })
   }
-
 }
