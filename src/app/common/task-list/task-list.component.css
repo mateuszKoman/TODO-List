@@ -1,0 +1,3 @@
+:host {
+  @apply mk-flex mk-flex-col mk-items-center mk-w-[500px] mk-h-[750px] mk-border-solid mk-border-2 mk-border-borderColor mk-rounded-3xl;
+}

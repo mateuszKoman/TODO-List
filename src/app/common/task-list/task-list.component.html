@@ -1,13 +1,11 @@
-<div class="mk-flex mk-flex-col mk-items-center mk-w-[500px] mk-h-[750px] mk-border-solid mk-border-2 mk-border-borderColor mk-rounded-3xl">
-  <task-card class="mk-h-11 mk-w-[97%] mk-border-solid mk-border-2 mk-border-borderColor mk-mt-1 mk-rounded-xl mk-pl-1"
-             [ngClass]="{
+<task-card class="mk-h-11 mk-w-[97%] mk-border-solid mk-border-2 mk-border-borderColor mk-mt-1 mk-rounded-xl mk-pl-1"
+           [ngClass]="{
              'mk-bg-gray-500': task.status === TaskStatus.TODO,
              'mk-bg-blue-700': task.status === TaskStatus.INPROGRESS,
              'mk-bg-green-700': task.status === TaskStatus.DONE}"
-             *ngFor="let task of listOfTasks;"
-             cdkDrag
-             [cdkDragData]="task"
-             [task]="task">
-    {{ task.summary }}
-  </task-card>
-</div>
+           *ngFor="let task of listOfTasks;"
+           cdkDrag
+           [cdkDragData]="task"
+           [task]="task">
+  {{ task.summary }}
+</task-card>

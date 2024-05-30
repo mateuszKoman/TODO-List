@@ -40,15 +40,6 @@
   }
 }
 
-body, html {
-  height: 100%;
-}
-
-app-root {
-  height: 100%;
-  width: 100%;
-}
-
-.cdk-drag-placeholder {
-  display: none;
+body, html, app-root, main-component {
+  @apply mk-h-full mk-w-fit mk-block mk-min-w-[1399px];
 }

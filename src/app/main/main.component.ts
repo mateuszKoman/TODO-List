@@ -12,7 +12,7 @@ import { EditModalComponent } from 'app/common/task/edit-task/edit-modal/edit-mo
 import { ListIDsServiceService } from 'app/common/generics/generic-list/list-ids-service/list-ids-service.service';
 
 @Component({
-  selector: 'todolist',
+  selector: 'main-component',
   standalone: true,
   imports: [
     TaskListComponent,

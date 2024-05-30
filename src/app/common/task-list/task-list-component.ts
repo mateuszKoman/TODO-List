@@ -12,7 +12,8 @@ import { TaskStatus } from 'app/common/task/taskStatus';
     CommonModule,
     TaskCardComponent,
     DragDropModule],
-  templateUrl: './task-list.component.html'
+  templateUrl: './task-list.component.html',
+  styleUrl: './task-list.component.css'
 })
 export class TaskListComponent {
 
