@@ -1,23 +1,21 @@
-<div class="main-container"
-     [ngClass]="{'dark-mode': isDarkMode}">
-  <app-header-component class="app-header"
-                        (newListEventEmitter)="createList()">
-  </app-header-component>
-  <backlog class="backlog"
+<app-header-component class="mk-h-20 mk-block mk-w-fit"
+                      (newListEventEmitter)="createList()">
+</app-header-component>
+<div class="mk-flex mk-justify-between mk-h-fit">
+  <backlog class="mk-px-3 mk-pt-2.5 mk-h-fit"
            id="backlog"
            draggable="true"
            (dragstart)="onDragStart($event)"
            (drop)="onDrop($event)"
            (dragover)="allowDrop($event)">
   </backlog>
-  <to-do-list class="todolist"
+  <to-do-list class="mk-px-3 mk-h-fit mk-pt-16"
               id="todolist"
               draggable="true"
               (dragstart)="onDragStart($event)"
               (drop)="onDrop($event)"
               (dragover)="allowDrop($event)">
   </to-do-list>
-    <ng-container #container
-                  class="dynamic-list">
+    <ng-container #container>
     </ng-container>
 </div>

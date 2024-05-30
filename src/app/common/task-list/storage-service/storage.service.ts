@@ -3,8 +3,8 @@ import { Task } from 'app/common/task/task';
 import { BehaviorSubject, Observable, take } from 'rxjs';
 import { TaskStatus } from 'app/common/task/taskStatus';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { EditHistory } from 'app/common/task/task-card/edit-task/edit-modal/edit-history/editHistory';
-import { EditType } from 'app/common/task/task-card/edit-task/edit-modal/edit-history/editType';
+import { EditHistory } from 'app/common/task/edit-task/edit-modal/edit-history/editHistory';
+import { EditType } from 'app/common/task/edit-task/edit-modal/edit-history/editType';
 
 @Injectable({
   providedIn: 'root'

@@ -1,5 +1,4 @@
-<button [ngClass]="{'dark-mode' : isDarkMode}"
-        class="new-list-button"
-        (click)="onNewListClick()">
-  New List 📋
-</button>
+<generic-button [content]="'New List'"
+                [classes]="['mk-blue-button', 'mk-w-40']"
+                (click)="onNewListClick()">
+</generic-button>

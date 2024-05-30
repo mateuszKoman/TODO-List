@@ -1,12 +1,9 @@
-<div class="todolist-container"
-     id="todolist-container">
-  <list-header class="todolist-header-container"
-               [ngClass]="{'dark-mode': isDarkMode}">
+<div id="todolist-container"
+     class="mk-flex mk-flex-col mk-h-full mk-items-center mk-justify-evenly">
+  <list-header class="mk-pb-2">
     TO DO LIST
   </list-header>
-  <task-list class="task-container"
-             [ngClass]="{'dark-mode': isDarkMode}"
-             [listOfTasks]="toDoList"
+  <task-list [listOfTasks]="toDoList"
              cdkDropList
              (cdkDropListDropped)="drop($event)"
              [cdkDropListConnectedTo]="listIDs"

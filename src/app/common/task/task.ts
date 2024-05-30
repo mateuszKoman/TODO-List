@@ -1,11 +1,11 @@
 import { TaskStatus } from 'app/common/task/taskStatus';
-import { EditHistory } from 'app/common/task/task-card/edit-task/edit-modal/edit-history/editHistory';
+import { EditHistory } from 'app/common/task/edit-task/edit-modal/edit-history/editHistory';
 
 export class Task {
-  id: string;
-  summary: string;
-  status: TaskStatus;
-  editHistory: ReadonlyArray<EditHistory>;
+  readonly id: string;
+  readonly summary: string;
+  readonly status: TaskStatus;
+  readonly editHistory: ReadonlyArray<EditHistory>;
 
   constructor(id: string, summary: string, status: TaskStatus, editHistory: ReadonlyArray<EditHistory>) {
     this.id = id;

@@ -1,0 +1,41 @@
+<div class="mk-h-full mk-w-full mk-p-3 mk-border-borderColor mk-border-2 mk-border-solid mk-rounded-3xl mk-bg-background">
+  <h1 class="mk-text-4xl">
+    EDIT TASK
+  </h1>
+  <form [formGroup]="form">
+    <div class="mk-flex mk-flex-col mk-pt-5">
+      <label for="task-name-input"
+             class="mk-pb-1">
+        Task Name
+      </label>
+      <input type="text"
+             class="mk-w-[90%] mk-h-10 mk-border-solid mk-border-borderColor mk-border-2 mk-rounded-lg mk-text-3xl mk-pl-1.5 mk-bg-background"
+             id="task-name-input"
+             name="task-name-input"
+             [formControlName]="'taskSummary'">
+    </div>
+    <div class="mk-pt-5 mk-flex mk-flex-col">
+      <label for="status-select">
+        Select Status
+      </label>
+      <select [formControlName]="'taskStatus'"
+              class="mk-w-1/2 mk-h-10 mk-border-solid mk-border-borderColor mk-border-2 mk-rounded-lg mk-text-3xl mk-pl-1.5 mk-bg-background"
+              id="status-select">
+        <option *ngFor="let option of taskStatusOptions"
+                [value]="option">
+          {{ option }}
+        </option>
+      </select>
+    </div>
+    <edit-history [editHistory]="task.editHistory">
+    </edit-history>
+    <generic-button [content]="'Save'"
+                    [classes]="['mk-right-2.5', 'mk-bottom-2.5', 'mk-absolute', 'mk-blue-button']"
+                    (click)="onSaveButton()">
+    </generic-button>
+    <generic-button [content]="'Close'"
+                    [classes]="['mk-right-32', 'mk-bottom-2.5', 'mk-absolute', 'mk-gray-button']"
+                    (click)="onCloseButton()">
+    </generic-button>
+  </form>
+</div>

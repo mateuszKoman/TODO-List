@@ -1,0 +1,6 @@
+<h1 class="mk-text-4xl mk-pt-5">
+  EDIT HISTORY
+</h1>
+<ul class="mk-list-disc mk-pl-4">
+  <li *ngFor="let date of editHistory">{{ date.editDate.toLocaleString() }}, {{ date.editType }}, {{ date.beforeEdit }}, {{ date.afterEdit }}</li>
+</ul>

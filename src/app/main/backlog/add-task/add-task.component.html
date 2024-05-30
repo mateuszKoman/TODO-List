@@ -1,7 +1,11 @@
-<input [(ngModel)]="newTask.summary"
-       placeholder="Type your task"
-       class="add-task-input"
-       [ngClass]="{'dark-mode': isDarkMode}">
-<button class="small-button" (click)="addTask()">
-  Add
-</button>
+<div class="mk-flex mk-items-center">
+  <input [(ngModel)]="newTaskSummary"
+         placeholder="Type your task"
+         (keyup.enter)="addTask()"
+         class="mk-w-96 mk-h-11 mk-border-borderColor mk-border-2 mk-border-solid mk-rounded-xl mk-text-3xl mk-bg-background mk-text-content">
+  <generic-button [classes]="['mk-blue-button']"
+                  [content]="'Add'"
+                  class="mk-pl-2"
+                  (click)="addTask()">
+  </generic-button>
+</div>

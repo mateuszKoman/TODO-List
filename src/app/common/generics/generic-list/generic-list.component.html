@@ -1,0 +1,13 @@
+<div class="mk-flex mk-flex-col mk-h-full mk-items-center mk-justify-evenly">
+  <generic-list-header [(title)]="listName"
+                       (titleChange)="onListNameChange($event)"
+                       class="mk-pb-2">
+  </generic-list-header>
+  <task-list [listOfTasks]="genericList"
+             cdkDropList
+             (cdkDropListDropped)="drop($event)"
+             [cdkDropListConnectedTo]="listIDs"
+             [cdkDropListData]="genericList"
+             [id]="id">
+  </task-list>
+</div>

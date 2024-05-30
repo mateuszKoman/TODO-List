@@ -1,12 +1,10 @@
 <div id="backlog-container"
-     class="backlog-container">
-  <list-header class="backlog-header-container">
+     class="mk-flex mk-flex-col mk-h-full mk-items-center">
+  <list-header class="mk-pb-2">
     BACKLOG
   </list-header>
-  <add-task class="add-task-container"></add-task>
-  <task-list class="task-container"
-             [ngClass]="{'dark-mode': isDarkMode}"
-             [listOfTasks]="backlogTasks"
+  <add-task class="mk-pb-1.5"></add-task>
+  <task-list [listOfTasks]="backlogTasks"
              cdkDropList
              (cdkDropListDropped)="drop($event)"
              [cdkDropListConnectedTo]="listIDs"

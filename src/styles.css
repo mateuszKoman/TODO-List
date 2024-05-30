@@ -1,9 +1,47 @@
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: "Permanent Marker", system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+    @apply mk-bg-background;
+    @apply mk-text-content;
+  }
+
+  .mk-blue-button {
+    @apply mk-bg-blue-900 mk-text-blue-600 mk-border-blue-600 active:mk-bg-blue-600
+    active:mk-text-blue-400 hover:mk-opacity-85 mk-border-solid mk-border-2 mk-rounded-lg
+    mk-w-24 mk-h-12 mk-text-3xl mk-transition-all;
+  }
+
+  .mk-gray-button {
+    @apply mk-bg-gray-400 mk-text-gray-600 mk-border-gray-600 active:mk-bg-gray-100
+    active:mk-text-gray-400 hover:mk-opacity-85 mk-border-solid mk-border-2 mk-rounded-lg
+    mk-w-24 mk-h-12 mk-text-3xl mk-transition-all;
+  }
+
+  :root {
+    --color-background: 245 245 245;
+    --color-content: 0 0 0;
+    --color-borderColor: 0 0 0;
+  }
+
+  :root[theme-mode="dark"] {
+    --color-background: 48 48 48;
+    --color-content: 245 245 245;
+    --color-borderColor: 110 110 110;
+  }
+}
 
 body, html {
   height: 100%;
-  margin: 0;
-  padding: 0;
 }
 
 app-root {
@@ -11,48 +49,6 @@ app-root {
   width: 100%;
 }
 
-html, body {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: whitesmoke;
-}
-
-.dark-mode {
-  background-color: black;
-  color: whitesmoke;
-  border-color: whitesmoke;
-}
-
-.task-container {
-  position: absolute;
-  margin-left: 40px;
-  margin-right: 40px;
-  margin-top: 40px;
-  height: 70%;
-  width: 500px;
-  border: 2px solid black;
-  border-radius: 30px;
-  bottom: 100px;
-}
-
-.dynamic-component {
-  position: relative;
-  top: 85px;
-}
-
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-mat-dialog-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  z-index: 1;
-  background-color: black;
+.cdk-drag-placeholder {
+  display: none;
 }
