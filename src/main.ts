@@ -1,10 +1,14 @@
+import { importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
-import { ThemeService } from 'app/common/theme-mode-switcher/theme-service/theme.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { booleanAttribute } from '@angular/core';
+import { provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
+import { ThemeEffects } from 'app/common/theme-mode/theme-service/theme-state/theme-effects';
+import { reducer as themeReducer } from './app/common/theme-mode/theme-service/theme-state/theme-reducer';
+import { AppComponent } from 'app/app.component';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
-
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideStore({ theme: themeReducer }),
+    provideEffects([ThemeEffects])
+  ]
+});

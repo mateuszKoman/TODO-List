@@ -5,7 +5,7 @@
   </generic-list-header>
   <task-list [listOfTasks]="genericList"
              cdkDropList
-             (cdkDropListDropped)="drop($event)"
+             (cdkDropListDropped)="taskDrop($event)"
              [cdkDropListConnectedTo]="listIDs"
              [cdkDropListData]="genericList"
              [id]="id">

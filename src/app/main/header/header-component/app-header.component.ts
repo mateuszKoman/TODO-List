@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { NewListButtonComponent } from 'app/common/new-list-button/new-list-button.component';
-import { ThemeModeSwitcherComponent } from 'app/common/theme-mode-switcher/theme-mode-switcher.component';
+import { ThemeModeSwitcherComponent } from 'app/common/theme-mode/theme-mode-switcher/theme-mode-switcher.component';
 
 @Component({
   selector: 'app-header-component',

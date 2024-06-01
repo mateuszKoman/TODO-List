@@ -6,9 +6,9 @@
   <add-task class="mk-pb-1.5"></add-task>
   <task-list [listOfTasks]="backlogTasks"
              cdkDropList
-             (cdkDropListDropped)="drop($event)"
+             (cdkDropListDropped)="taskDrop($event)"
              [cdkDropListConnectedTo]="listIDs"
              [cdkDropListData]="backlogTasks"
-             id="backlog">
+             [id]="id">
   </task-list>
 </div>

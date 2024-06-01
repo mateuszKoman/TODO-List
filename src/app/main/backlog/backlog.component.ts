@@ -4,13 +4,13 @@ import { AddTaskComponent } from 'app/main/backlog/add-task/add-task.component';
 import { ListHeaderComponent } from 'app/common/list-header/list-header.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { Task } from 'app/common/task/task';
 import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup, DragDropModule } from '@angular/cdk/drag-drop';
 import { StorageService } from 'app/common/task-list/storage-service/storage.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TaskStatus } from 'app/common/task/taskStatus';
-import { ListIDsServiceService } from 'app/common/generics/generic-list/list-ids-service/list-ids-service.service';
+import { ListIdsService } from 'app/common/generics/generic-list/list-ids-service/list-ids.service';
+import { TaskPositionService } from 'app/common/task-list/task-position-service/task-position.service';
 
 @Component({
   selector: 'backlog',
@@ -29,23 +29,30 @@ import { ListIDsServiceService } from 'app/common/generics/generic-list/list-ids
   templateUrl: './backlog.component.html'
 })
 export class BacklogComponent implements OnInit {
-  isDarkMode: boolean = false;
-  private themeSubscription?: Subscription;
+
+  listIDs!: Array<string>;
 
   backlogTasks!: Array<Task>;
-  listIDs!: Array<string>;
+
+  id: string = this.listIDsService.generateListID();
 
   constructor(
     private readonly storageService: StorageService,
+    private readonly taskPositionService: TaskPositionService,
     private readonly destroyRef: DestroyRef,
     private readonly changeDetectorRef: ChangeDetectorRef,
-    private readonly listIDsServiceService: ListIDsServiceService
+    private readonly listIDsService: ListIdsService
   ) {
   }
 
   ngOnInit(): void {
     this.observeBacklog();
     this.observeListIDs();
+  }
+
+  taskDrop(event: CdkDragDrop<Task[]>): void {
+    this.taskPositionService.drop(event);
+    event.item.data.status = TaskStatus.TODO;
   }
 
   private observeBacklog(): void {
@@ -57,17 +64,12 @@ export class BacklogComponent implements OnInit {
     });
   }
 
-  observeListIDs() {
-    this.listIDsServiceService.getListIDs().pipe(
+  private observeListIDs() {
+    this.listIDsService.getAllListID().pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe(listIDs => {
       this.listIDs = listIDs;
       this.changeDetectorRef.detectChanges();
     });
-  }
-
-  drop(event: CdkDragDrop<Task[]>): void {
-    this.storageService.drop(event);
-    event.item.data.status = TaskStatus.TODO;
   }
 }

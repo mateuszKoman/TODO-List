@@ -41,5 +41,5 @@
 }
 
 body, html, app-root, main-component {
-  @apply mk-h-full mk-w-fit mk-block mk-min-w-[1399px];
+  @apply mk-h-full mk-w-fit mk-block mk-min-w-full;
 }

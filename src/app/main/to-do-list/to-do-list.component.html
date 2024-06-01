@@ -5,9 +5,9 @@
   </list-header>
   <task-list [listOfTasks]="toDoList"
              cdkDropList
-             (cdkDropListDropped)="drop($event)"
+             (cdkDropListDropped)="taskDrop($event)"
              [cdkDropListConnectedTo]="listIDs"
              [cdkDropListData]="toDoList"
-             id="todolist">
+             [id]="id">
   </task-list>
 </div>
