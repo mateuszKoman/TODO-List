@@ -8,6 +8,7 @@ import { EditHistoryComponent } from 'app/common/task/edit-task/edit-modal/edit-
 import { EditHistory } from 'app/common/task/edit-task/edit-modal/edit-history/editHistory';
 import { EditType } from 'app/common/task/edit-task/edit-modal/edit-history/editType';
 import { GenericButtonComponent } from 'app/common/generics/generic-button/generic-button-component';
+import { EditTaskService } from 'app/common/task/edit-task/edit-modal/edit-task-service/edit-task.service';
 
 @Component({
   selector: 'edit-modal',
@@ -29,7 +30,8 @@ export class EditModalComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly dialogRef: MatDialogRef<EditModalComponent>,
-    private readonly fb: FormBuilder
+    private readonly fb: FormBuilder,
+    private readonly editTaskService: EditTaskService,
   ) {
   }
 
@@ -67,7 +69,7 @@ export class EditModalComponent implements OnInit, OnDestroy {
       newEditHistory = [...newEditHistory, new EditHistory(new Date(), EditType.RENAME, this.task.summary, taskSummary)];
     }
 
-    this.task = new Task(this.task.id, taskSummary, taskStatus, newEditHistory);
+    this.editTaskService.updateTask(new Task(this.task.id, taskSummary, taskStatus, newEditHistory));
   }
 
   onCloseButton() {

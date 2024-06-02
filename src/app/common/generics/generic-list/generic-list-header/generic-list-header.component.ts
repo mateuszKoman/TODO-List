@@ -18,7 +18,6 @@ export class GenericListHeaderComponent implements OnInit {
   @Output()
   titleChange = new EventEmitter<string>();
 
-  isDarkMode: boolean = false;
   private previousTitle!: string;
 
   ngOnInit() {

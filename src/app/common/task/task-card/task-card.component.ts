@@ -12,5 +12,5 @@ import { Task } from 'app/common/task/task';
 export class TaskCardComponent {
 
   @Input()
-  task!: Task
+  task!: Task;
 }
