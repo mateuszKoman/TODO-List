@@ -1,0 +1,3 @@
+table, th, td {
+  @apply mk-border-borderColor mk-border-2 mk-border-solid
+}

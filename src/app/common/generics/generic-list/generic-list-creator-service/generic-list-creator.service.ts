@@ -25,7 +25,7 @@ export class GenericListCreatorService {
   createGenericList(container: ViewContainerRef) {
     this.listComponentRef = container.createComponent(GenericList);
 
-    this.setPropertiesValue();
+    this.setInitialListPropertiesValues();
     this.setDragAndDropHandlers();
   }
 
@@ -38,7 +38,7 @@ export class GenericListCreatorService {
     this.renderer.listen(element, 'dragenter', this.listPositionService.allowDrop.bind(this));
   }
 
-  private setPropertiesValue(): void {
+  private setInitialListPropertiesValues(): void {
     this.componentCounter++;
 
     this.listComponentRef.instance.listName = `LIST-${this.componentCounter}`;

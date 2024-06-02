@@ -33,6 +33,9 @@ export class EditButtonComponent {
 
     dialogRef.afterOpened().subscribe(() => {
       this.renderer.addClass(firstModalParent, '!mk-rounded-3xl');
+      this.renderer.addClass(firstModalParent, 'mk-border-borderColor');
+      this.renderer.addClass(firstModalParent, 'mk-border-2');
+      this.renderer.addClass(firstModalParent, 'mk-border-solid');
     });
   }
 }

@@ -62,7 +62,9 @@ export class EditModalComponent implements OnInit, OnDestroy {
     let newEditHistory = this.task.editHistory;
 
     if (this.task.summary !== taskSummary && this.task.status !== taskStatus) {
-      newEditHistory = [...newEditHistory, new EditHistory(new Date(), EditType.STATUS_CHANGE_AND_RENAME, this.task.status, taskStatus)];
+      newEditHistory = [...newEditHistory,
+        new EditHistory(new Date(), EditType.STATUS_CHANGE_AND_RENAME, this.task.status, taskStatus),
+        new EditHistory(new Date(), EditType.STATUS_CHANGE_AND_RENAME, this.task.summary, taskSummary),];
     } else if (this.task.status !== taskStatus) {
       newEditHistory = [...newEditHistory, new EditHistory(new Date(), EditType.STATUS_CHANGE, this.task.status, taskStatus)];
     } else if (this.task.summary !== taskSummary) {

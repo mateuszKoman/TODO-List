@@ -8,7 +8,8 @@ import { EditHistory } from 'app/common/task/edit-task/edit-modal/edit-history/e
   imports: [
     NgForOf
   ],
-  templateUrl: './edit-history.component.html'
+  templateUrl: './edit-history.component.html',
+  styleUrl: './edit-history.component.css'
 })
 export class EditHistoryComponent {
 
