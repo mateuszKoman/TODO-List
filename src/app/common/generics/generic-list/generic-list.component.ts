@@ -12,6 +12,7 @@ import { GenericListHeaderComponent } from 'app/common/generics/generic-list/gen
 import { ListIdsService } from 'app/common/generics/generic-list/list-ids-service/list-ids.service';
 import { BacklogComponent } from 'app/main/backlog/backlog.component';
 import { TaskPositionService } from 'app/common/task-list/task-position-service/task-position.service';
+import { GenericListNameService } from 'app/common/generics/generic-list/generic-list-header/generic-list-name.service';
 
 @Component({
   selector: 'generic-list',
@@ -28,6 +29,9 @@ import { TaskPositionService } from 'app/common/task-list/task-position-service/
     GenericListHeaderComponent,
     CdkDrag,
     BacklogComponent
+  ],
+  providers:[
+    GenericListNameService
   ],
   templateUrl: './generic-list.component.html',
   styleUrl: './generic-list.component.css',
@@ -48,19 +52,26 @@ export class GenericList implements OnInit {
     private readonly changeDetectorRef: ChangeDetectorRef,
     private readonly taskPositionService: TaskPositionService,
     private readonly listIDsService: ListIdsService,
+    private readonly genericListNameService: GenericListNameService
   ) {
   }
 
   ngOnInit(): void {
     this.observeListIDs();
+    this.observeListName();
   }
 
   taskDrop(event: CdkDragDrop<Task[]>): void {
     this.taskPositionService.drop(event);
   }
 
-  onListNameChange(newTitle: string) {
-    this.listName = newTitle;
+  observeListName(): void {
+    this.genericListNameService.listName$.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(listName => {
+      this.listName = listName
+      this.id = this.listIDsService.generateListID(this.listName);
+    })
   }
 
   private observeListIDs() {

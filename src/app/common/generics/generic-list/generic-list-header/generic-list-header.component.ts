@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
+import { GenericListNameService } from 'app/common/generics/generic-list/generic-list-header/generic-list-name.service';
 
 @Component({
   selector: 'generic-list-header',
@@ -15,19 +16,16 @@ export class GenericListHeaderComponent implements OnInit {
   @Input()
   title!: string;
 
-  @Output()
-  titleChange = new EventEmitter<string>();
-
-  private previousTitle!: string;
+  constructor(
+    private readonly genericListNameService: GenericListNameService
+  ) {
+  }
 
   ngOnInit() {
     this.onTitleChange();
-    this.previousTitle = this.title;
   }
 
   onTitleChange() {
-    if (this.previousTitle !== this.title) {
-      this.titleChange.emit(this.title);
-    }
+    this.genericListNameService.updateListName(this.title);
   }
 }
