@@ -34,7 +34,7 @@ export class BacklogComponent implements OnInit {
 
   backlogTasks!: Array<Task>;
 
-  id: string = this.listIDsService.generateListID();
+  id: string = this.listIDsService.generateListID('backlog');
 
   constructor(
     private readonly storageService: StorageService,

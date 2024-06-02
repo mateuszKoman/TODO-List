@@ -17,9 +17,7 @@ export class ListIdsService {
     this._listIDs.next(newLitsIDs);
   }
 
-  generateListID(): string {
-    const id = uuidv4();
-
+  generateListID(id: string): string {
     this.listIDs.push(id);
     this.updateListIDs(this.listIDs);
     return id;

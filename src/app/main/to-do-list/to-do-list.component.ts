@@ -37,7 +37,7 @@ export class ToDoListComponent implements OnInit {
 
   listIDs!: Array<string>;
 
-  id: string = this.listIDsService.generateListID();
+  id: string = this.listIDsService.generateListID('to do list');
 
   constructor(
     private readonly destroyRef: DestroyRef,

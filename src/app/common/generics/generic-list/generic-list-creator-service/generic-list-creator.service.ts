@@ -41,7 +41,7 @@ export class GenericListCreatorService {
   private setPropertiesValue(): void {
     this.componentCounter++;
 
-    this.listComponentRef.instance.id = this.listIDsService.generateListID();
     this.listComponentRef.instance.listName = `LIST-${this.componentCounter}`;
+    this.listComponentRef.instance.id = this.listIDsService.generateListID(this.listComponentRef.instance.listName);
   }
 }
