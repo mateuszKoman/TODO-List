@@ -1,28 +1,30 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, take } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { addListID, changeListID } from 'app/common/generics/generic-list/list-ids-service/state/listID-action';
+import { selectAllListIDs } from 'app/common/generics/generic-list/list-ids-service/state/listID-selectors';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListIdsService {
 
-  private listIDs: Array<string> = [];
-
-  private _listIDs = new BehaviorSubject<Array<string>>([]);
-  private listIDs$ = this._listIDs.asObservable()
-
-
-  private updateListIDs(newLitsIDs: string[]) {
-    this._listIDs.next(newLitsIDs);
+  constructor(
+    private readonly store: Store<{ listIDs: string[] }>
+  ) {
   }
 
-  generateListID(id: string): string {
-    this.listIDs.push(id);
-    this.updateListIDs(this.listIDs);
-    return id;
+  generateListID(listID: string): string {
+    this.store.dispatch(addListID({ listID }));
+    return listID;
+  }
+
+  changeListID(previousListID: string, currentListID: string): string {
+    this.store.dispatch(changeListID({ previousListID, currentListID }))
+    return currentListID;
   }
 
   getAllListID(): Observable<Array<string>> {
-    return this.listIDs$;
+    return this.store.select(selectAllListIDs);
   }
 }

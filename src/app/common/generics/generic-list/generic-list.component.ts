@@ -69,8 +69,8 @@ export class GenericList implements OnInit {
     this.genericListNameService.listName$.pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe(listName => {
+      this.id = this.listIDsService.changeListID(this.listName, listName);
       this.listName = listName
-      this.id = this.listIDsService.generateListID(this.listName);
     })
   }
 

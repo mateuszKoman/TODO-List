@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as ThemeActions from './theme-state/theme-action';
-import { selectIsDarkMode } from './theme-state/theme-selectors';
+import * as ThemeActions from './state/theme-action';
+import { selectIsDarkMode } from './state/theme-selectors';
 import { Observable } from 'rxjs';
 
 export const darkModeStorageKey = 'isDarkMode';
