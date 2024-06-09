@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Task } from 'app/common/task/task';
 import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup, DragDropModule } from '@angular/cdk/drag-drop';
-import { StorageService } from 'app/common/task-list/storage-service/storage.service';
+import { AddNewTaskService } from 'app/common/task-list/add-new-task-service/add-new-task.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TaskStatus } from 'app/common/task/taskStatus';
 import { ListIdsService } from 'app/common/generics/generic-list/list-ids-service/list-ids.service';
 import { TaskPositionService } from 'app/common/task-list/task-position-service/task-position.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'backlog',
@@ -37,7 +38,7 @@ export class BacklogComponent implements OnInit {
   id: string = this.listIDsService.generateListID('backlog');
 
   constructor(
-    private readonly storageService: StorageService,
+    private readonly addNewTaskService: AddNewTaskService,
     private readonly taskPositionService: TaskPositionService,
     private readonly destroyRef: DestroyRef,
     private readonly changeDetectorRef: ChangeDetectorRef,
@@ -56,7 +57,7 @@ export class BacklogComponent implements OnInit {
   }
 
   private observeBacklog(): void {
-    this.storageService.getBacklog().pipe(
+    this.addNewTaskService.getBacklog().pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe(backlog => {
       this.backlogTasks = backlog;

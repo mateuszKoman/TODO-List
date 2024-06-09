@@ -8,7 +8,7 @@ import { Task } from 'app/common/task/task';
 import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { NewListButtonComponent } from 'app/common/new-list-button/new-list-button.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { StorageService } from 'app/common/task-list/storage-service/storage.service';
+import { AddNewTaskService } from 'app/common/task-list/add-new-task-service/add-new-task.service';
 import { ListIdsService } from 'app/common/generics/generic-list/list-ids-service/list-ids.service';
 import { BacklogComponent } from 'app/main/backlog/backlog.component';
 import { TaskPositionService } from 'app/common/task-list/task-position-service/task-position.service';
@@ -33,7 +33,7 @@ import { TaskPositionService } from 'app/common/task-list/task-position-service/
 })
 export class ToDoListComponent implements OnInit {
 
-  toDoList!: Array<Task>;
+  toDoList: Array<Task> = [];
 
   listIDs!: Array<string>;
 
@@ -42,28 +42,18 @@ export class ToDoListComponent implements OnInit {
   constructor(
     private readonly destroyRef: DestroyRef,
     private readonly changeDetectorRef: ChangeDetectorRef,
-    private readonly storageService: StorageService,
+    private readonly storageService: AddNewTaskService,
     private readonly taskPositionService: TaskPositionService,
     private readonly listIDsService: ListIdsService
   ) {
   }
 
   ngOnInit(): void {
-    this.observeTODOList();
     this.observeListIDs();
   }
 
   taskDrop(event: CdkDragDrop<Task[]>): void {
     this.taskPositionService.drop(event);
-  }
-
-  private observeTODOList() {
-    this.storageService.getTODOList().pipe(
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe(todolist => {
-      this.toDoList = todolist;
-      this.changeDetectorRef.detectChanges();
-    });
   }
 
   private observeListIDs() {

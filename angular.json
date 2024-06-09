@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "TODO-List": {
+    "todolist": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -58,10 +58,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "TODO-List:build:production"
+              "buildTarget": "todolist:build:production"
             },
             "development": {
-              "buildTarget": "TODO-List:build:development"
+              "buildTarget": "todolist:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -69,7 +69,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "TODO-List:build"
+            "buildTarget": "todolist:build"
           }
         },
         "test": {
