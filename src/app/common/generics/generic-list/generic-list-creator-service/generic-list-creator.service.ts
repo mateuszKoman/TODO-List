@@ -32,10 +32,10 @@ export class GenericListCreatorService {
   private setDragAndDropHandlers(): void {
     const element = this.listComponentRef.location.nativeElement;
 
-    this.renderer.setAttribute(element, 'draggable', 'true');
-    this.renderer.listen(element, 'dragstart', this.listPositionService.onDragStart.bind(this));
-    this.renderer.listen(element, 'drop', this.listPositionService.onDrop.bind(this));
-    this.renderer.listen(element, 'dragenter', this.listPositionService.allowDrop.bind(this));
+    // this.renderer.setAttribute(element, 'draggable', 'true');
+    // this.renderer.listen(element, 'dragstart', this.listPositionService.onDragStart.bind(this));
+    // this.renderer.listen(element, 'drop', this.listPositionService.onDrop.bind(this));
+    // this.renderer.listen(element, 'dragenter', this.listPositionService.allowDrop.bind(this));
   }
 
   private setInitialListPropertiesValues(): void {

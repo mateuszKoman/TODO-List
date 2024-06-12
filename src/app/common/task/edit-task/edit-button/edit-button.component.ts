@@ -1,7 +1,8 @@
-import { Component, Input, Renderer2 } from '@angular/core';
+import { Component, Input, OnInit, Renderer2 } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EditModalComponent } from 'app/common/task/edit-task/edit-modal/edit-modal.component';
 import { Task } from 'app/common/task/task';
+import { EditTaskCurrentService } from 'app/common/task/edit-task/edit-modal/edit-task-current.service';
 
 @Component({
   selector: 'edit-button',
@@ -15,7 +16,8 @@ export class EditButtonComponent {
 
   constructor(
     private readonly matDialog: MatDialog,
-    private readonly renderer: Renderer2
+    private readonly renderer: Renderer2,
+    private readonly editTaskCurrentService: EditTaskCurrentService
   ) {
   }
 
@@ -24,6 +26,7 @@ export class EditButtonComponent {
     dialogRef.addPanelClass(['mk-h-[800px]', 'mk-w-[1000px]', 'mk-rounded-3xl']);
     dialogRef.componentInstance.task = this.task;
     dialogRef.disableClose = true;
+    this.editTaskCurrentService.setCurrentTask(this.task);
 
     this.changeDialogStyles(dialogRef);
   }

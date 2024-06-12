@@ -45,14 +45,14 @@ export class MainComponent {
   }
 
   onDragStart(event: DragEvent) {
-    this.listPositionService.onDragStart(event);
+    // this.listPositionService.onDragStart(event);
   }
 
   onDrop(event: DragEvent) {
-    this.listPositionService.onDrop(event);
+    // this.listPositionService.onDrop(event);
   }
 
   allowDrop(event: DragEvent) {
-    this.listPositionService.allowDrop(event);
+    // this.listPositionService.allowDrop(event);
   }
 }
